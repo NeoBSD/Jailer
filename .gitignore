@@ -5,7 +5,8 @@
 .idea
 
 # Project
-jailer
+jailer*
+config.yml
 
 # Binaries for programs and plugins
 *.exe
