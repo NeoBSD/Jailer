@@ -5,7 +5,7 @@
 .idea
 
 # Project
-jailer*
+bin/jailer*
 config.yml
 
 # Binaries for programs and plugins
@@ -20,3 +20,6 @@ config.yml
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+# Coverage
+*.html
