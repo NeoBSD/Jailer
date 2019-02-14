@@ -30,8 +30,12 @@ type Command struct {
 	Maintainer string
 }
 
-// NewCommandFromFile ...
-func NewCommandFromFile(path string) (Command, error) {
+func (c *Command) String() string {
+	return "HHIIO"
+}
+
+// NewJailerCommandFromFile ...
+func NewJailerCommandFromFile(path string) (Command, error) {
 
 	// Open file
 	file, err := os.Open(path)

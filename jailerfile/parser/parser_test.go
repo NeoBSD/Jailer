@@ -6,7 +6,7 @@ import (
 	"github.com/tobiashienzsch/jailer/jailerfile/parser"
 )
 
-func TestNewCommandFromFile(t *testing.T) {
+func TestNewJailerCommandFromFile(t *testing.T) {
 
 	var tests = []struct {
 		input        string
@@ -19,7 +19,7 @@ func TestNewCommandFromFile(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		actual, err := parser.NewCommandFromFile(tt.input)
+		actual, err := parser.NewJailerCommandFromFile(tt.input)
 		if err != nil {
 			// If an error exists, but it should not
 			if tt.expectsError == false {
