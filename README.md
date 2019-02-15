@@ -1,5 +1,7 @@
 # Jailer
 
+## TLDR
+
 The goal of Jailer is to solve the same problems that Docker solved on Linux, but for FreeBSD. Imagine a project where next to your already existing `Dockerfile` you have a `Jailerfile`, which can be used to start a FreeBSD jail running your installed & configurated application.
 
 ## Warning
