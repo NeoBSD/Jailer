@@ -1,10 +1,8 @@
 package cmd
 
 import (
-	"bufio"
 	"fmt"
 	"os/exec"
-	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -15,22 +13,19 @@ var storageCmd = &cobra.Command{
 	Short: "Manages container & image storage",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-
+		// Setup external zfs list
+		externalCMD := "zfs"
 		cArgs := "list -Ho name "
-    cArgs += strings.Join(args, " ")
-    fmt.Println(cArgs)
-		c := exec.Command("zfs", strings.Split(cArgs, " ")...)
+		c := exec.Command(externalCMD, cArgs)
 
-		stderr, _ := c.StdoutPipe()
-		c.Start()
-
-		scanner := bufio.NewScanner(stderr)
-		scanner.Split(bufio.ScanWords)
-		for scanner.Scan() {
-			m := scanner.Text()
-			fmt.Println(m)
+		// Exec external zfs list
+		stdout, err := c.Output()
+		if err != nil {
+			fmt.Println(err.Error())
+			return
 		}
-		c.Wait()
+
+		fmt.Print(string(stdout))
 
 	},
 }
