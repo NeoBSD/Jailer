@@ -16,7 +16,9 @@ var storageCmd = &cobra.Command{
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		cArgs := "list"
+		cArgs := "list -Ho name "
+    cArgs += strings.Join(args, " ")
+    fmt.Println(cArgs)
 		c := exec.Command("zfs", strings.Split(cArgs, " ")...)
 
 		stderr, _ := c.StdoutPipe()
