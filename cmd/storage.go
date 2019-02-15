@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"os/exec"
-	_ "strings"
 
 	"github.com/spf13/cobra"
 )
