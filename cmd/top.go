@@ -13,11 +13,9 @@ var topCmd = &cobra.Command{
 	Short: "Top inside a container",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		// Setup external
 		externalCMD := "top"
 		c := exec.Command(externalCMD, "-jb", "2")
 
-		// Exec external
 		stdout, err := c.Output()
 		if err != nil {
 			fmt.Println(err.Error())
@@ -31,7 +29,4 @@ var topCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(topCmd)
-
-	// Here you will define your flags and configuration settings.
-
 }
