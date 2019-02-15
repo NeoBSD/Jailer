@@ -5,3 +5,6 @@ Docker like orchestration of system/app images using FreeBSD jails & the ZFS fil
 ## Quick Start
 
 ## Development
+### Dependencies
+- Golang with modules
+- gmake
