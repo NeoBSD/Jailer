@@ -5,9 +5,9 @@ import (
 
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 
 	"github.com/tobiashienzsch/jailer/jail"
-	"github.com/tobiashienzsch/jailer/runtime"
 )
 
 // buildCmd represents the config sub command
@@ -16,15 +16,21 @@ var buildCmd = &cobra.Command{
 	Short: "Builds a jailer container",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
+		jailerPath := viper.Get("jailer-path")
+		name := "test-jail"
+		ip := "10.23.0.55"
 
+		// Create config
 		container := jail.Jail{
-			Name:      "test-jail",
-			Hostname:  "test.jailer",
-			IP:        "10.23.0.55",
-			Path:      fmt.Sprintf("%s/%s", runtime.JailerPath, "test-jail"),
+			Name:      name,
+			Hostname:  fmt.Sprintf("%s.jailer.com", name),
+			IP:        ip,
+			Path:      fmt.Sprintf("%s/%s", jailerPath, name),
 			ExecStart: "/bin/sh /etc/rc",
 			ExecStop:  "/bin/sh /etc/rc.shutdown",
 		}
+
+		// Write to *.conf file
 		err := jail.WriteConfig(container)
 		if err != nil {
 			logrus.Fatal(err)
