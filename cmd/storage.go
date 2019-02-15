@@ -1,9 +1,11 @@
 package cmd
 
 import (
+	"bufio"
+	"fmt"
 	"os/exec"
+	"strings"
 
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
@@ -13,11 +15,20 @@ var storageCmd = &cobra.Command{
 	Short: "Manages container & image storage",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		// Start a process:
-		c := exec.Command("zfs", "list")
-		if err := c.Run(); err != nil {
-			logrus.Fatal(err)
+
+		cArgs := "list"
+		c := exec.Command("zfs", strings.Split(cArgs, " ")...)
+
+		stderr, _ := c.StdoutPipe()
+		c.Start()
+
+		scanner := bufio.NewScanner(stderr)
+		scanner.Split(bufio.ScanWords)
+		for scanner.Scan() {
+			m := scanner.Text()
+			fmt.Println(m)
 		}
+		c.Wait()
 
 	},
 }
