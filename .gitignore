@@ -8,6 +8,8 @@
 bin/jailer*
 config.yml
 sandbox
+test-jail.conf
+test.conf
 
 # Binaries for programs and plugins
 *.exe
