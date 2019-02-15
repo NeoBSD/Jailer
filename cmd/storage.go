@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os/exec"
+_   "strings"
 
 	"github.com/spf13/cobra"
 )
@@ -14,9 +15,10 @@ var storageCmd = &cobra.Command{
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		// Setup external zfs list
-		externalCMD := "zfs"
-		cArgs := "list -Ho name "
-		c := exec.Command(externalCMD, cArgs)
+    externalCMD := "zfs"
+		//cArgs := `list -H -o name `
+		//c := exec.Command(externalCMD, strings.Split(cArgs, " ")...)
+		c := exec.Command(externalCMD, "list", "-H", "-o", "name")
 
 		// Exec external zfs list
 		stdout, err := c.Output()
