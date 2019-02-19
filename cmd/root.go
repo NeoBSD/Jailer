@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+  "os/user"
 
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -15,10 +16,22 @@ var rootCmd = &cobra.Command{
 	Use:   "jailer",
 	Short: "jailer",
 	Long:  `jailer https://github.com/tobiashienzsch/jailer`,
+  PersistentPreRun: func(cmd *cobra.Command, args []string) {
+    // Get current os user
+    user, err := user.Current()
+    if err != nil {
+      logrus.Warning("Could not get current user. Jailer should run as root")
+    }
+
+    // Check if jailer is running as root. Abort if not.
+    if user.Username != "root" {
+		  logrus.Fatal("Jailer should run as root. Switch user or use sudo.")
+    }
+    fmt.Println(user.Username)
+  },
 	Run: func(cmd *cobra.Command, args []string) {
 		logrus.Info("Some info. Earth is not flat.")
 		logrus.Warning("This is a warning")
-		logrus.Error("Not fatal. An error. Won't stop execution")
 
 	},
 }
