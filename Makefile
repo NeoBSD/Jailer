@@ -1,5 +1,6 @@
 # GO ENV
 GOCMD=go
+GOFMT=goimports
 GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
@@ -28,7 +29,9 @@ test:
 test-coverage:
 	$(GOTEST) -coverprofile cover.out ./... && go tool cover -html=cover.out -o cover.html
 clean:
-	$(GOCLEAN)	
+	$(GOCLEAN)
 	$(GOCLEAN) -testcache
 	rm -f $(BINARY_NAME)
 	rm -f cover.out cover.html
+format:
+	$(GOFMT) -w .
