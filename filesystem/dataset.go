@@ -27,7 +27,7 @@ func NewDataset(path string) error {
 	select {
 	case err := <-done:
 		if err != nil {
-			return fmt.Errorf("process finished with error = %v", err)
+			return fmt.Errorf("process finished with error = %v", err.Error())
 		}
 	}
 
