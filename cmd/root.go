@@ -17,6 +17,11 @@ var rootCmd = &cobra.Command{
 	Short: "jailer",
 	Long:  `jailer https://github.com/tobiashienzsch/jailer`,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
+		// Skip root user check for 'version' subcommand
+		if cmd.Name() == "version" {
+			return
+		}
+
 		// Get current os user
 		user, err := user.Current()
 		if err != nil {
@@ -25,9 +30,8 @@ var rootCmd = &cobra.Command{
 
 		// Check if jailer is running as root. Abort if not.
 		if user.Username != "root" {
-			logrus.Fatal("Jailer should run as root. Switch user or use sudo.")
+			logrus.Fatalf("Jailer should run as root. You are %v. Switch user or use sudo.", user.Username)
 		}
-		fmt.Println(user.Username)
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		logrus.Info("Some info. Earth is not flat.")
