@@ -1,6 +1,8 @@
 package filesystem
 
 import (
+	"github.com/sirupsen/logrus"
+
 	"fmt"
 	"os/exec"
 )
@@ -11,12 +13,24 @@ func NewDataset(path string) error {
 	zfsCMD := "zfs"
 	c := exec.Command(zfsCMD, "create", path)
 
-	// Exec external zfs list
-	stdout, err := c.Output()
-	if err != nil {
-		return fmt.Errorf("Error while executing external command: %v", err.Error())
+	logrus.Warn(c.Args)
+	if err := c.Start(); err != nil {
+		logrus.Fatal(err)
 	}
 
-	fmt.Print(string(stdout))
+	// Wait for the process to finish
+	done := make(chan error, 1)
+	go func() {
+		done <- c.Wait()
+	}()
+
+	select {
+	case err := <-done:
+		if err != nil {
+			return fmt.Errorf("process finished with error = %v", err)
+		}
+		fmt.Println("process finished successfully")
+	}
+
 	return nil
 }
