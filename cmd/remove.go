@@ -16,7 +16,7 @@ var removeCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 
 		// Setup external zfs list
-    jailPath := fmt.Sprintf("%s/%s", viper.Get("jailer-path"), args[0])
+		jailPath := fmt.Sprintf("%s/%s", viper.Get("jailer-path"), args[0])
 		externalCMD := "zfs"
 		c := exec.Command(externalCMD, "list", "-H", "-o", "name", jailPath)
 
