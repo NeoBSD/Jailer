@@ -13,7 +13,7 @@ func NewDataset(path string) error {
 	zfsCMD := "zfs"
 	c := exec.Command(zfsCMD, "create", path)
 
-	logrus.Warn(c.Args)
+	// Start zfs command
 	if err := c.Start(); err != nil {
 		logrus.Fatal(err)
 	}
@@ -29,7 +29,6 @@ func NewDataset(path string) error {
 		if err != nil {
 			return fmt.Errorf("process finished with error = %v", err)
 		}
-		fmt.Println("process finished successfully")
 	}
 
 	return nil
