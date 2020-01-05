@@ -45,6 +45,8 @@ jailer top $CONTAINER
 
 ### Dependencies
 
+- FreeBSD 12.1
+  - ZFS
 - Go (tested with 1.13)
   - Cobra
   - Viper
@@ -55,7 +57,7 @@ jailer top $CONTAINER
 
 ```sh
 cp config.example.yml config.yml
-zfs create $ZROOT/jailer
+zfs create -o mountpoint=/jailer $ZROOT/jailer
 ```
 
 ## License
