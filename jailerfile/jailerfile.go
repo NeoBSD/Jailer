@@ -65,6 +65,10 @@ func ParseFromFile(path string) (*Jailerfile, error) {
 			}
 		case Run:
 			result.Instructions = append(result.Instructions, RunInstruction{Command: cleanString(str)})
+		case WorkDir:
+			result.Instructions = append(result.Instructions, WorkDirInstruction{Command: cleanString(str)})
+		case Copy:
+			result.Instructions = append(result.Instructions, CopyInstruction{Command: cleanString(str)})
 		default:
 		}
 	}

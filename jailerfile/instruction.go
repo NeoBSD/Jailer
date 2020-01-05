@@ -23,7 +23,7 @@ func (f FromInstruction) Name() string {
 
 // RunInstruction executes a command at build time inside the jail
 type RunInstruction struct {
-	Command string `json:"command"`
+	Command string `json:"run"`
 }
 
 // Execute is run inside the jail
@@ -34,4 +34,34 @@ func (r RunInstruction) Execute() error {
 // Name returns the instruction identifier
 func (r RunInstruction) Name() string {
 	return "RUN"
+}
+
+// WorkDirInstruction sets the working directory at build time inside the jail
+type WorkDirInstruction struct {
+	Command string `json:"work_dir"`
+}
+
+// Execute is run inside the jail
+func (w WorkDirInstruction) Execute() error {
+	return nil
+}
+
+// Name returns the instruction identifier
+func (w WorkDirInstruction) Name() string {
+	return "WORKDIR"
+}
+
+// CopyInstruction sets the working directory at build time inside the jail
+type CopyInstruction struct {
+	Command string `json:"copy"`
+}
+
+// Execute is run inside the jail
+func (w CopyInstruction) Execute() error {
+	return nil
+}
+
+// Name returns the instruction identifier
+func (w CopyInstruction) Name() string {
+	return "COPY"
 }

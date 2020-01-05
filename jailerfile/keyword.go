@@ -14,6 +14,7 @@ const (
 	From       = "FROM"
 	Run        = "RUN"
 	Shell      = "SHELL"
+	WorkDir    = "WORKDIR"
 )
 
 func cleanString(input string) string {

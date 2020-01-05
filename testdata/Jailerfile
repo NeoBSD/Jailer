@@ -9,6 +9,7 @@ LABEL description="This text illustrates ..."
 
 # RUN: Executes a command inside the jail.
 RUN echo "Hello Jailer!"
+RUN echo "Some other text."
 
 # WORKDIR: Sets the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD.
 WORKDIR /work
