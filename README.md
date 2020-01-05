@@ -34,8 +34,10 @@ RUN echo
 Most commands need to run as `root`:
 
 ```sh
-jailer version          # Prints jailer version info
-jailer top $CONTAINER   # Prints a one time output of top in a container
+jailer version
+jailer config
+jailer storage
+jailer top $CONTAINER
 ```
 
 ## Development

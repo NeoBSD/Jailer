@@ -13,6 +13,17 @@ var storageCmd = &cobra.Command{
 	Short: "Manages container & image storage",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
+
+		// -H
+		// Used for scripting mode. Do not print headers and separate
+		// fields by a single tab instead of arbitrary white space.
+
+		// -o all | field[,field]...
+		// A comma-separated list of columns to display. Supported
+		// values are name,property,value,received,source.  Default
+		// values are name,property,value,source.  The keyword all
+		// specifies all columns.
+
 		// Setup external zfs list
 		externalCMD := "zfs"
 		c := exec.Command(externalCMD, "list", "-H", "-o", "name")
