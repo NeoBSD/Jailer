@@ -14,20 +14,20 @@ var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print current version",
 	Long:  ``,
-	Run: func(cmd *cobra.Command, args []string) {
-		// Verbose
-		if viper.Get("verbose") == true {
-			fmt.Printf("Version: %s\n", runtime.Version)
-			fmt.Printf("Commit: %s\n", runtime.BuildCommit)
-			fmt.Printf("Date: %s\n", runtime.BuildDate)
-			fmt.Printf("Build on: %s\n", runtime.BuildOS)
-			return
-		}
+	Run:   RunVersionCommand,
+}
 
-		// Version & Commit
-		fmt.Printf("%s-%s\n", runtime.Version, runtime.BuildCommit)
+// RunVersionCommand prints the current jailer version
+func RunVersionCommand(cmd *cobra.Command, args []string) {
+	if viper.Get("verbose") == true {
+		fmt.Printf("Version: %s\n", runtime.Version)
+		fmt.Printf("Commit: %s\n", runtime.BuildCommit)
+		fmt.Printf("Date: %s\n", runtime.BuildDate)
+		fmt.Printf("Build on: %s\n", runtime.BuildOS)
+		return
+	}
 
-	},
+	fmt.Printf("%s-%s\n", runtime.Version, runtime.BuildCommit)
 }
 
 func init() {

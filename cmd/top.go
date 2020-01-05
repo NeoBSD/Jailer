@@ -12,34 +12,37 @@ var topCmd = &cobra.Command{
 	Use:   "top",
 	Short: "Top inside a container",
 	Long:  ``,
-	Run: func(cmd *cobra.Command, args []string) {
+	Run:   RunTopCommand,
+}
 
-		// -j
-		// Display the jail(8) ID.
+// RunTopCommand ...
+func RunTopCommand(cmd *cobra.Command, args []string) {
 
-		// -J jail
-		// Show only those processes owned by jail.  This may be either the
-		// jid or name of the jail.  Use 0 to limit to host processes.
-		// Using this option implies -j.
+	// -j
+	// Display the jail(8) ID.
 
-		// -b
-		// Use “batch” mode.  In this mode, all input from the terminal is
-		// ignored.  Interrupt characters (such as ^C and ^\) still have an
-		// effect.  This is the default on a dumb terminal, or when the
-		// output is not a terminal.
+	// -J jail
+	// Show only those processes owned by jail.  This may be either the
+	// jid or name of the jail.  Use 0 to limit to host processes.
+	// Using this option implies -j.
 
-		externalCMD := "top"
-		c := exec.Command(externalCMD, "-jb", "2")
+	// -b
+	// Use “batch” mode.  In this mode, all input from the terminal is
+	// ignored.  Interrupt characters (such as ^C and ^\) still have an
+	// effect.  This is the default on a dumb terminal, or when the
+	// output is not a terminal.
 
-		stdout, err := c.Output()
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
+	externalCMD := "top"
+	c := exec.Command(externalCMD, "-jb", "2")
 
-		fmt.Print(string(stdout))
+	stdout, err := c.Output()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
-	},
+	fmt.Print(string(stdout))
+
 }
 
 func init() {

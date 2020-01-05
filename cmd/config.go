@@ -12,15 +12,14 @@ var configCmd = &cobra.Command{
 	Use:   "config",
 	Short: "Print current config",
 	Long:  ``,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Verbose: %v\n", viper.Get("verbose"))
-
-	},
+	Run:   RunConfigCommand,
 }
 
+// RunConfigCommand ...
+func RunConfigCommand(cmd *cobra.Command, args []string) {
+	fmt.Printf("Verbose: %v\n", viper.Get("verbose"))
+
+}
 func init() {
 	rootCmd.AddCommand(configCmd)
-
-	// Here you will define your flags and configuration settings.
-
 }

@@ -14,19 +14,21 @@ var initCmd = &cobra.Command{
 	Use:   "init [zpool]",
 	Short: "Init for jailer. Creates zfs datasets",
 	Args:  cobra.MinimumNArgs(1),
-	RunE: func(cmd *cobra.Command, args []string) error {
-
-		// Create datasets
-		jailerRoot := fmt.Sprintf("%s/jailer", args[0])
-		createDatasets(jailerRoot)
-
-		// Write initial config
-		// Enable jails in rc.conf
-
-		return nil
-	},
+	RunE:  RunInitCommand,
 }
 
+// RunInitCommand ...
+func RunInitCommand(cmd *cobra.Command, args []string) error {
+
+	// Create datasets
+	jailerRoot := fmt.Sprintf("%s/jailer", args[0])
+	createDatasets(jailerRoot)
+
+	// Write initial config
+	// Enable jails in rc.conf
+
+	return nil
+}
 func init() {
 	rootCmd.AddCommand(initCmd)
 

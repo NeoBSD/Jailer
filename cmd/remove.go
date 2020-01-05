@@ -13,23 +13,26 @@ var removeCmd = &cobra.Command{
 	Use:   "rm [ID]",
 	Short: "Remove a container",
 	Args:  cobra.MinimumNArgs(1),
-	RunE: func(cmd *cobra.Command, args []string) error {
+	RunE:  RunRemoveCommand,
+}
 
-		// Setup external zfs list
-		jailPath := fmt.Sprintf("%s/%s", viper.Get("jailer-path"), args[0])
-		externalCMD := "zfs"
-		c := exec.Command(externalCMD, "list", "-H", "-o", "name", jailPath)
+// RunRemoveCommand ...
+func RunRemoveCommand(cmd *cobra.Command, args []string) error {
 
-		// Exec external zfs list
-		stdout, err := c.Output()
-		if err != nil {
-			return fmt.Errorf("Error while executing external command: %v", err.Error())
-		}
+	// Setup external zfs list
+	jailPath := fmt.Sprintf("%s/%s", viper.Get("jailer-path"), args[0])
+	externalCMD := "zfs"
+	c := exec.Command(externalCMD, "list", "-H", "-o", "name", jailPath)
 
-		fmt.Print(string(stdout))
+	// Exec external zfs list
+	stdout, err := c.Output()
+	if err != nil {
+		return fmt.Errorf("Error while executing external command: %v", err.Error())
+	}
 
-		return nil
-	},
+	fmt.Print(string(stdout))
+
+	return nil
 }
 
 func init() {

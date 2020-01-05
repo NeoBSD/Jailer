@@ -7,37 +7,40 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// storageCmd represents the config sub command
+// storageCmd represents the storage sub command
 var storageCmd = &cobra.Command{
 	Use:   "storage",
 	Short: "Manages container & image storage",
 	Long:  ``,
-	Run: func(cmd *cobra.Command, args []string) {
+	Run:   RunStorageCommand,
+}
 
-		// -H
-		// Used for scripting mode. Do not print headers and separate
-		// fields by a single tab instead of arbitrary white space.
+// RunStorageCommand ...
+func RunStorageCommand(cmd *cobra.Command, args []string) {
 
-		// -o all | field[,field]...
-		// A comma-separated list of columns to display. Supported
-		// values are name,property,value,received,source.  Default
-		// values are name,property,value,source.  The keyword all
-		// specifies all columns.
+	// -H
+	// Used for scripting mode. Do not print headers and separate
+	// fields by a single tab instead of arbitrary white space.
 
-		// Setup external zfs list
-		externalCMD := "zfs"
-		c := exec.Command(externalCMD, "list", "-H", "-o", "name")
+	// -o all | field[,field]...
+	// A comma-separated list of columns to display. Supported
+	// values are name,property,value,received,source.  Default
+	// values are name,property,value,source.  The keyword all
+	// specifies all columns.
 
-		// Exec external zfs list
-		stdout, err := c.Output()
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
+	// Setup external zfs list
+	externalCMD := "zfs"
+	c := exec.Command(externalCMD, "list", "-H", "-o", "name")
 
-		fmt.Print(string(stdout))
+	// Exec external zfs list
+	stdout, err := c.Output()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
-	},
+	fmt.Print(string(stdout))
+
 }
 
 func init() {

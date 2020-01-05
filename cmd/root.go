@@ -13,30 +13,36 @@ import (
 var cfgFile string
 
 var rootCmd = &cobra.Command{
-	Use:   "jailer",
-	Short: "jailer",
-	Long:  `jailer https://github.com/tobiashienzsch/jailer`,
-	PersistentPreRun: func(cmd *cobra.Command, args []string) {
-		// Skip root user check for 'version' subcommand
-		if cmd.Name() == "version" {
-			return
-		}
+	Use:              "jailer",
+	Short:            "jailer",
+	Long:             `jailer https://github.com/tobiashienzsch/jailer`,
+	PersistentPreRun: PreRunRootCommand,
+	Run:              RunRootCommand,
+}
 
-		// Get current os user
-		user, err := user.Current()
-		if err != nil {
-			logrus.Warning("Could not get current user. Jailer should run as root")
-		}
+// PreRunRootCommand gets called before every command & subcommand
+func PreRunRootCommand(cmd *cobra.Command, args []string) {
+	// Skip root user check for 'version' subcommand
+	if cmd.Name() == "version" {
+		return
+	}
 
-		// Check if jailer is running as root. Abort if not.
-		if user.Username != "root" {
-			logrus.Fatalf("Jailer should run as root. You are %v. Switch user or use sudo.", user.Username)
-		}
-	},
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Jailer\n")
+	// Get current os user
+	user, err := user.Current()
+	if err != nil {
+		logrus.Warning("Could not get current user. Jailer should run as root")
+	}
 
-	},
+	// Check if jailer is running as root. Abort if not.
+	if user.Username != "root" {
+		logrus.Fatalf("Jailer should run as root. You are %v. Switch user or use sudo.", user.Username)
+	}
+}
+
+// RunRootCommand runs if no subcommand was selected.
+func RunRootCommand(cmd *cobra.Command, args []string) {
+	fmt.Printf("Jailer\n")
+
 }
 
 // Execute is the main entry point for the cli

@@ -11,24 +11,24 @@ import (
 var fetchCmd = &cobra.Command{
 	Use:   "fetch",
 	Short: "Fetch base from FreeBSD mirror",
-	RunE: func(cmd *cobra.Command, args []string) error {
+	RunE:  RunFetchCommand,
+}
 
-		// Get OS version
-		c := exec.Command("freebsd-version")
-		stdout, err := c.Output()
-		if err != nil {
-			return fmt.Errorf("Error while executing external command: %v", err.Error())
-		}
+// RunFetchCommand ...
+func RunFetchCommand(cmd *cobra.Command, args []string) error {
 
-		fmt.Print(string(stdout))
+	// Get OS version
+	c := exec.Command("freebsd-version")
+	stdout, err := c.Output()
+	if err != nil {
+		return fmt.Errorf("While executing external command: %v", err.Error())
+	}
 
-		return nil
-	},
+	fmt.Print(string(stdout))
+
+	return nil
 }
 
 func init() {
 	rootCmd.AddCommand(fetchCmd)
-
-	// Here you will define your flags and configuration settings.
-
 }
