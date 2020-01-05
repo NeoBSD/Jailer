@@ -45,7 +45,10 @@ jailer top $CONTAINER
 
 ### Dependencies
 
-- Golang with modules
+- Go (tested with 1.13)
+  - Cobra
+  - Viper
+  - Logrus
 - gmake
 
 ### Setup
