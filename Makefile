@@ -1,10 +1,5 @@
-# GO ENV
-GOCMD=go
-GOFMT=goimports
-GOBUILD=$(GOCMD) build
-GOCLEAN=$(GOCMD) clean
-GOTEST=$(GOCMD) test
-GOGET=$(GOCMD) get
+.PHONY: all
+all: deps test build
 
 # BINARY
 BINARY_DIR=bin
@@ -18,20 +13,30 @@ LINKER_FLAGS = -ldflags "-X main.commit=$(HEAD) -X main.date=$(BUILD_DATE) -X ma
 UNAME := $(shell uname)
 
 # COMMANDS
-all: deps test build
+.PHONY: deps
 deps:
-	$(GOGET) -u ./...
-	$(GOCMD) mod tidy
+	go get -u ./...
+	go mod tidy
+
+.PHONY: build
 build:
-	$(GOBUILD) -o $(BINARY_NAME) $(LINKER_FLAGS)
+	go build -o $(BINARY_NAME) $(LINKER_FLAGS)
+
+.PHONY: test
 test:
-	$(GOTEST) ./...
-test-coverage:
-	$(GOTEST) -coverprofile cover.out ./... && go tool cover -html=cover.out -o cover.html
+	go test ./...
+
+.PHONY: coverage
+coverage:
+	go test -coverprofile coverage.out ./...
+
+.PHONY: clean
 clean:
-	$(GOCLEAN)
-	$(GOCLEAN) -testcache
+	go clean
+	go clean -testcache
 	rm -f $(BINARY_NAME)
-	rm -f cover.out cover.html
+	rm -f coverage.out
+
+.PHONY: format
 format:
-	$(GOFMT) -w .
+	goimports -w .
