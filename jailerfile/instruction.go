@@ -8,7 +8,7 @@ type Instruction interface {
 
 // FromInstruction specifies te base jail
 type FromInstruction struct {
-	From string
+	From string `json:"from"`
 }
 
 // Execute is run inside the jail
@@ -23,7 +23,7 @@ func (f FromInstruction) Name() string {
 
 // RunInstruction executes a command at build time inside the jail
 type RunInstruction struct {
-	Command string
+	Command string `json:"command"`
 }
 
 // Execute is run inside the jail

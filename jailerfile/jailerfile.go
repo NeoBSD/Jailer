@@ -8,9 +8,9 @@ import (
 
 // Jailerfile ...
 type Jailerfile struct {
-	Maintainer   string
-	BaseImage    string
-	Instructions []interface{ Instruction }
+	Maintainer   string                     `json:"maintainer"`
+	BaseImage    string                     `json:"base_image"`
+	Instructions []interface{ Instruction } `json:"instructions"`
 }
 
 func (j Jailerfile) String() string {

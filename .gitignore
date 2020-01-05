@@ -10,6 +10,7 @@ config.yml
 sandbox
 test-jail.conf
 test.conf
+t.json
 
 # Binaries for programs and plugins
 *.exe
