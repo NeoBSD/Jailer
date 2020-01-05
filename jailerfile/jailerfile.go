@@ -64,15 +64,23 @@ func NewFromFile(path string) (*Jailerfile, error) {
 				result.BaseImage.Version = cleanString(base[1])
 			}
 		case Run:
-			result.Instructions = append(result.Instructions, RunInstruction{Command: cleanString(str)})
+			run := &RunInstruction{}
+			err = parseInstructionLine(result, run, str)
 		case WorkDir:
-			result.Instructions = append(result.Instructions, WorkDirInstruction{Command: cleanString(str)})
+			workDir := &WorkDirInstruction{}
+			err = parseInstructionLine(result, workDir, str)
 		case Copy:
-			result.Instructions = append(result.Instructions, CopyInstruction{Command: cleanString(str)})
+			copy := &CopyInstruction{}
+			err = parseInstructionLine(result, copy, str)
 		case Cmd:
-			result.Instructions = append(result.Instructions, CmdInstruction{Command: cleanString(str)})
+			cmd := &CmdInstruction{}
+			err = parseInstructionLine(result, cmd, str)
 		default:
 		}
+	}
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
 	}
 
 	// Return empty & error if an error happend during scanning
@@ -81,4 +89,15 @@ func NewFromFile(path string) (*Jailerfile, error) {
 	}
 
 	return result, nil
+}
+
+func parseInstructionLine(jf *Jailerfile, data interface{ Instruction }, line string) error {
+
+	err := data.Parse(line)
+	if err != nil {
+		return err
+	}
+
+	jf.Instructions = append(jf.Instructions, data)
+	return nil
 }
