@@ -34,8 +34,7 @@ var rootCmd = &cobra.Command{
 		}
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		logrus.Info("Some info. Earth is not flat.")
-		logrus.Warning("This is a warning")
+		fmt.Printf("Jailer\n")
 
 	},
 }

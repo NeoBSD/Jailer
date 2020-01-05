@@ -26,7 +26,7 @@ A container can be described in a `Jailerfile`. The goal is to keep the syntax a
 
 ```docker
 FROM freebsd
-RUN echo
+RUN echo "Hello Jailer!"
 ```
 
 ### Supported commands
@@ -34,6 +34,7 @@ RUN echo
 Most commands need to run as `root`:
 
 ```sh
+jailer help
 jailer version
 jailer config
 jailer storage
