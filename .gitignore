@@ -1,10 +1,11 @@
 # Editors
 .vs
-.vscode
+.vscode/*
 .atom
 .idea
 
 # Project
+!.vscode/settings.json
 bin/jailer*
 config.yml
 sandbox

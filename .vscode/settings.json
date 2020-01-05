@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "Jailerfile": "dockerfile",
+    "Jailerfile_*": "dockerfile"
+  }
+}

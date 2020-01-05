@@ -4,6 +4,8 @@ FROM freebsd
 
 # LABEL: Adds metadata to an image. A LABEL is a key-value pair. 
 LABEL maintainer="example@example.com"
+LABEL version="1.0"
+LABEL description="This text illustrates ..."
 
 # RUN: Executes a command inside the jail.
 RUN echo "Hello Jailer!"
