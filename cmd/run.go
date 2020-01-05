@@ -24,7 +24,7 @@ var runCmd = &cobra.Command{
 // RunRunCommand ...
 func RunRunCommand(cmd *cobra.Command, args []string) {
 
-	// Find home directory.
+	// Find working directory.
 	dir, err := os.Getwd()
 	if err != nil {
 		fmt.Println(err)
@@ -37,7 +37,7 @@ func RunRunCommand(cmd *cobra.Command, args []string) {
 	}
 
 	// Start a process:
-	externalCMD := exec.Command("cat", jailFile.String())
+	externalCMD := exec.Command("echo", jailFile.String())
 	logrus.Warn(externalCMD.Args)
 	if err := externalCMD.Start(); err != nil {
 		logrus.Fatal(err)

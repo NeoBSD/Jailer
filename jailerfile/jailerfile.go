@@ -14,7 +14,7 @@ type Jailerfile struct {
 }
 
 func (j Jailerfile) String() string {
-	return j.Maintainer
+	return j.BaseImage
 }
 
 // ParseFromFile parses a Jailerfile from the filesystem
