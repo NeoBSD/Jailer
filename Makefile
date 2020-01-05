@@ -16,7 +16,6 @@ UNAME := $(shell uname)
 .PHONY: deps
 deps:
 	go get -u ./...
-	go mod tidy
 
 .PHONY: build
 build:

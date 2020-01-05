@@ -1,7 +1,9 @@
 # This is a comment.
-
-# FROM: selects the base jail for this image build.
+# FROM: Selects the base jail for this image build.
 FROM freebsd
+
+# LABEL: Adds metadata to an image. A LABEL is a key-value pair. 
+LABEL maintainer="example@example.com"
 
 # RUN: Executes a command inside the jail.
 RUN echo "Hello Jailer!"
@@ -10,7 +12,7 @@ RUN echo "Hello Jailer!"
 WORKDIR /work
 
 # RUN: Copies a file or directory to the jail filesystem.
-COPY test.txt .
+COPY test.sh .
 
 # CMD: Default command to run when your jail starts.
-CMD python /app/app.py
+CMD sh /work/test.sh

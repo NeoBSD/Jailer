@@ -12,12 +12,12 @@ type FromInstruction struct {
 }
 
 // Execute is run inside the jail
-func (f *FromInstruction) Execute() error {
+func (f FromInstruction) Execute() error {
 	return nil
 }
 
 // Name returns the instruction identifier
-func (f *FromInstruction) Name() string {
+func (f FromInstruction) Name() string {
 	return "FROM"
 }
 
@@ -27,11 +27,11 @@ type RunInstruction struct {
 }
 
 // Execute is run inside the jail
-func (r *RunInstruction) Execute() error {
+func (r RunInstruction) Execute() error {
 	return nil
 }
 
 // Name returns the instruction identifier
-func (r *RunInstruction) Name() string {
+func (r RunInstruction) Name() string {
 	return "RUN"
 }
