@@ -13,6 +13,10 @@ type Jailerfile struct {
 	Instructions []interface{ Instruction }
 }
 
+func (j Jailerfile) String() string {
+	return j.Maintainer
+}
+
 // ParseFromFile parses a Jailerfile from the filesystem
 func ParseFromFile(path string) (*Jailerfile, error) {
 

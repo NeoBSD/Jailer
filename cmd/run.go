@@ -31,26 +31,26 @@ func RunRunCommand(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	jailerCMD, err := jailerfile.NewJailerCommandFromFile(filepath.Join(dir, "testdata", "Jailerfile"))
+	jailFile, err := jailerfile.ParseFromFile(filepath.Join(dir, "testdata", "Jailerfile"))
 	if err != nil {
 		logrus.Fatal(err)
 	}
 
 	// Start a process:
-	c := exec.Command("cat", jailerCMD.String())
-	logrus.Warn(c.Args)
-	if err := c.Start(); err != nil {
+	externalCMD := exec.Command("cat", jailFile.String())
+	logrus.Warn(externalCMD.Args)
+	if err := externalCMD.Start(); err != nil {
 		logrus.Fatal(err)
 	}
 
 	// Wait for the process to finish or kill it after a timeout:
 	done := make(chan error, 1)
 	go func() {
-		done <- c.Wait()
+		done <- externalCMD.Wait()
 	}()
 	select {
 	case <-time.After(3 * time.Second):
-		if err := c.Process.Kill(); err != nil {
+		if err := externalCMD.Process.Kill(); err != nil {
 			logrus.Fatal("failed to kill process: ", err)
 		}
 		logrus.Println("process killed as timeout reached")
