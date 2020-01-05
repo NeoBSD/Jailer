@@ -25,6 +25,8 @@ RUN echo
 
 ### Supported commands
 
+Most commands need to run as `root`:
+
 ```sh
 jailer version          # Prints jailer version info
 jailer top $CONTAINER   # Prints a one time output of top in a container
@@ -40,13 +42,14 @@ jailer top $CONTAINER   # Prints a one time output of top in a container
 ### Setup
 
 ```sh
+cp config.example.yml config.yml
 zfs create $ZROOT/jailer
 ```
 
 ## License
 
 ```text
-Copyright (c) 2019, Tobias Hienzsch
+Copyright (c) 2019-2020, Tobias Hienzsch
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
