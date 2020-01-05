@@ -6,7 +6,7 @@ import (
 	"github.com/tobiashienzsch/jailer/jailerfile"
 )
 
-func TestParseFromFile(t *testing.T) {
+func TestNewFromFile(t *testing.T) {
 
 	var tests = []struct {
 		input       string
@@ -40,7 +40,7 @@ func TestParseFromFile(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		actual, err := jailerfile.ParseFromFile(tt.input)
+		actual, err := jailerfile.NewFromFile(tt.input)
 
 		// error
 		if tt.expectError != (err != nil) {

@@ -24,8 +24,8 @@ func (j Jailerfile) String() string {
 	return fmt.Sprintf("%s:%s", j.BaseImage.Name, j.BaseImage.Version)
 }
 
-// ParseFromFile parses a Jailerfile from the filesystem
-func ParseFromFile(path string) (*Jailerfile, error) {
+// NewFromFile parses a Jailerfile from the filesystem
+func NewFromFile(path string) (*Jailerfile, error) {
 
 	// Open file
 	file, err := os.Open(path)
