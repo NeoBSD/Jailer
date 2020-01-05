@@ -65,3 +65,18 @@ func (w CopyInstruction) Execute() error {
 func (w CopyInstruction) Name() string {
 	return "COPY"
 }
+
+// CmdInstruction sets the working directory at build time inside the jail
+type CmdInstruction struct {
+	Command string `json:"cmd"`
+}
+
+// Execute is run inside the jail
+func (w CmdInstruction) Execute() error {
+	return nil
+}
+
+// Name returns the instruction identifier
+func (w CmdInstruction) Name() string {
+	return "CMD"
+}

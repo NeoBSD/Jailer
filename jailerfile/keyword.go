@@ -6,15 +6,15 @@ import (
 
 // Define constants for the command strings
 const (
-	Add        = "ADD"
-	Cmd        = "CMD"
-	Copy       = "COPY"
-	Entrypoint = "ENTRYPOINT"
-	Label      = "LABEL"
-	From       = "FROM"
-	Run        = "RUN"
-	Shell      = "SHELL"
-	WorkDir    = "WORKDIR"
+	// Add        = "ADD"
+	// Entrypoint = "ENTRYPOINT"
+	Cmd     = "CMD"
+	Copy    = "COPY"
+	From    = "FROM"
+	Label   = "LABEL"
+	Run     = "RUN"
+	Shell   = "SHELL"
+	WorkDir = "WORKDIR"
 )
 
 func cleanString(input string) string {

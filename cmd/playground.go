@@ -19,7 +19,7 @@ var playgroundCmd = &cobra.Command{
 
 // RunPlaygroundCommand executes the build subcommand.
 func RunPlaygroundCommand(cmd *cobra.Command, args []string) {
-	jf, err := jailerfile.ParseFromFile("testdata/Jailerfile")
+	jf, err := jailerfile.ParseFromFile("example/Jailerfile")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%v\n", err)
 		os.Exit(1)
