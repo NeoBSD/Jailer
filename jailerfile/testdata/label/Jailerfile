@@ -1,0 +1,4 @@
+FROM freebsd
+
+LABEL maintainer="example@example.com"
+LABEL version="1.0"

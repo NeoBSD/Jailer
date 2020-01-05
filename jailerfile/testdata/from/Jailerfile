@@ -1,2 +1,1 @@
 FROM freebsd
-RUN echo

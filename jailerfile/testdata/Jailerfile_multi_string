@@ -1,2 +1,0 @@
-FROM freebsd
-RUN echo $PWD

@@ -13,30 +13,8 @@ func TestNewFromFile(t *testing.T) {
 		expected    *jailerfile.Jailerfile
 		expectError bool
 	}{
-		// 1
-		{"testdata/Jailerfile_noexist", &jailerfile.Jailerfile{}, true},
-
-		// 2
-		{"testdata/Jailerfile_basic",
-			&jailerfile.Jailerfile{
-				BaseImage: jailerfile.BaseImage{
-					Name:    "freebsd",
-					Version: "latest",
-				},
-			},
-			false,
-		},
-
-		// 3
-		{"testdata/Jailerfile_multi_string",
-			&jailerfile.Jailerfile{
-				BaseImage: jailerfile.BaseImage{
-					Name:    "freebsd",
-					Version: "latest",
-				},
-			},
-			false,
-		},
+		{"testdata/noexist/Jailerfile", &jailerfile.Jailerfile{}, true},
+		{"testdata/label/Jailerfile", &jailerfile.Jailerfile{BaseImage: jailerfile.BaseImage{Name: "freebsd", Version: "latest"}}, false},
 	}
 
 	for _, tt := range tests {
@@ -47,16 +25,81 @@ func TestNewFromFile(t *testing.T) {
 			t.Errorf("Error %s", err)
 		}
 
-		// labels
-		// for idx, _ := range actual.Labels {
-		// 	if actual.Labels[idx] != tt.expected.Labels[idx] {
-		// 		t.Errorf("Expected: %q, Got: %q", tt.expected.Labels[idx], actual.Labels[idx])
-		// 	}
-		// }
-
 		// from
 		if actual.BaseImage != tt.expected.BaseImage {
 			t.Errorf("Expected: %q, Got: %q", tt.expected.BaseImage, actual.BaseImage)
 		}
 	}
+}
+
+func TestLabelParsing(t *testing.T) {
+
+	jf, err := jailerfile.NewFromFile("testdata/label/Jailerfile")
+
+	if err != nil {
+		t.Errorf("Error %v", err)
+	}
+
+	if jf.Labels["maintainer"] != `"example@example.com"` {
+		t.Errorf("Expected: \"%s\", got %s", "example@example.com", jf.Labels["maintainer"])
+	}
+
+	if jf.Labels["version"] != `"1.0"` {
+		t.Errorf("Expected: \"%s\", got %s", "1.0", jf.Labels["version"])
+	}
+
+}
+
+func TestFromWithImplicitLatestParsing(t *testing.T) {
+
+	jf, err := jailerfile.NewFromFile("testdata/from/Jailerfile")
+
+	if err != nil {
+		t.Errorf("Error %v", err)
+	}
+
+	if jf.BaseImage.Name != "freebsd" {
+		t.Errorf("Expected: %s, got %s", "freebsd", jf.BaseImage.Name)
+	}
+
+	if jf.BaseImage.Version != "latest" {
+		t.Errorf("Expected: %s, got %s", "latest", jf.BaseImage.Version)
+	}
+
+}
+
+func TestFromWithExplicitLatestParsing(t *testing.T) {
+
+	jf, err := jailerfile.NewFromFile("testdata/from_with_latest/Jailerfile")
+
+	if err != nil {
+		t.Errorf("Error %v", err)
+	}
+
+	if jf.BaseImage.Name != "freebsd" {
+		t.Errorf("Expected: %s, got %s", "freebsd", jf.BaseImage.Name)
+	}
+
+	if jf.BaseImage.Version != "latest" {
+		t.Errorf("Expected: %s, got %s", "latest", jf.BaseImage.Version)
+	}
+
+}
+
+func TestFromWithExplicitVersionParsing(t *testing.T) {
+
+	jf, err := jailerfile.NewFromFile("testdata/from_with_version/Jailerfile")
+
+	if err != nil {
+		t.Errorf("Error %v", err)
+	}
+
+	if jf.BaseImage.Name != "freebsd" {
+		t.Errorf("Expected: %s, got %s", "freebsd", jf.BaseImage.Name)
+	}
+
+	if jf.BaseImage.Version != "12.1" {
+		t.Errorf("Expected: %s, got %s", "12.1", jf.BaseImage.Version)
+	}
+
 }
