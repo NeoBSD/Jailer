@@ -2,19 +2,26 @@ package jailerfile
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strings"
 )
 
+// BaseImage ...
+type BaseImage struct {
+	Name    string `json:"name"`
+	Version string `json:"version"`
+}
+
 // Jailerfile ...
 type Jailerfile struct {
-	Maintainer   string                     `json:"maintainer"`
-	BaseImage    string                     `json:"base_image"`
+	Labels       map[string]string          `json:"labels"`
+	BaseImage    BaseImage                  `json:"base_image"`
 	Instructions []interface{ Instruction } `json:"instructions"`
 }
 
 func (j Jailerfile) String() string {
-	return j.BaseImage
+	return fmt.Sprintf("%s:%s", j.BaseImage.Name, j.BaseImage.Version)
 }
 
 // ParseFromFile parses a Jailerfile from the filesystem
@@ -28,8 +35,11 @@ func ParseFromFile(path string) (*Jailerfile, error) {
 
 	defer file.Close()
 
-	// Scan rows
+	// Init result
 	result := &Jailerfile{}
+	result.Labels = make(map[string]string)
+
+	// Scan rows
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		// Split elements by space character
@@ -39,10 +49,20 @@ func ParseFromFile(path string) (*Jailerfile, error) {
 
 		// Switch on instruction keyword
 		switch elements[0] {
-		case Maintainer:
-			result.Maintainer = cleanString(str)
+		case Label:
+			label := strings.Split(str, "=")
+			key := cleanString(label[0])
+			value := cleanString(label[1])
+			result.Labels[key] = value
 		case From:
-			result.BaseImage = cleanString(str)
+			base := strings.Split(str, ":")
+			name := cleanString(base[0])
+			result.BaseImage.Name = name
+			result.BaseImage.Version = "latest"
+
+			if len(base) == 2 {
+				result.BaseImage.Version = cleanString(base[1])
+			}
 		case Run:
 			result.Instructions = append(result.Instructions, RunInstruction{Command: cleanString(str)})
 		default:

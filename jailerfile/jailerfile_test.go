@@ -13,9 +13,30 @@ func TestParseFromFile(t *testing.T) {
 		expected    *jailerfile.Jailerfile
 		expectError bool
 	}{
+		// 1
 		{"testdata/Jailerfile_noexist", &jailerfile.Jailerfile{}, true},
-		{"testdata/Jailerfile_basic", &jailerfile.Jailerfile{BaseImage: "freebsd"}, false},
-		{"testdata/Jailerfile_multi_string", &jailerfile.Jailerfile{BaseImage: "freebsd"}, false},
+
+		// 2
+		{"testdata/Jailerfile_basic",
+			&jailerfile.Jailerfile{
+				BaseImage: jailerfile.BaseImage{
+					Name:    "freebsd",
+					Version: "latest",
+				},
+			},
+			false,
+		},
+
+		// 3
+		{"testdata/Jailerfile_multi_string",
+			&jailerfile.Jailerfile{
+				BaseImage: jailerfile.BaseImage{
+					Name:    "freebsd",
+					Version: "latest",
+				},
+			},
+			false,
+		},
 	}
 
 	for _, tt := range tests {
@@ -26,10 +47,12 @@ func TestParseFromFile(t *testing.T) {
 			t.Errorf("Error %s", err)
 		}
 
-		// maintainer
-		if actual.Maintainer != tt.expected.Maintainer {
-			t.Errorf("Expected: %q, Got: %q", tt.expected.Maintainer, actual.Maintainer)
-		}
+		// labels
+		// for idx, _ := range actual.Labels {
+		// 	if actual.Labels[idx] != tt.expected.Labels[idx] {
+		// 		t.Errorf("Expected: %q, Got: %q", tt.expected.Labels[idx], actual.Labels[idx])
+		// 	}
+		// }
 
 		// from
 		if actual.BaseImage != tt.expected.BaseImage {

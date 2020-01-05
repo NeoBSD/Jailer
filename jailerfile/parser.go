@@ -10,7 +10,7 @@ const (
 	Cmd        = "CMD"
 	Copy       = "COPY"
 	Entrypoint = "ENTRYPOINT"
-	Maintainer = "MAINTAINER"
+	Label      = "LABEL"
 	From       = "FROM"
 	Run        = "RUN"
 	Shell      = "SHELL"
