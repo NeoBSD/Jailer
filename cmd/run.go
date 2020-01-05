@@ -10,7 +10,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	"github.com/tobiashienzsch/jailer/jailerfile/parser"
+	"github.com/tobiashienzsch/jailer/jailerfile"
 )
 
 // runCmd represents the config sub command
@@ -31,7 +31,7 @@ func RunRunCommand(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	jailerCMD, err := parser.NewJailerCommandFromFile(filepath.Join(dir, "testdata", "Jailerfile"))
+	jailerCMD, err := jailerfile.NewJailerCommandFromFile(filepath.Join(dir, "testdata", "Jailerfile"))
 	if err != nil {
 		logrus.Fatal(err)
 	}
