@@ -65,3 +65,4 @@ zfs create -o mountpoint=/jailer $ZROOT/jailer
 - [Reddit: FreeBSD 12 + VNET + ZFS](https://www.reddit.com/r/freebsd/comments/ahdbbq/howto_jails_freebsd_12_vnet_zfs/)
 - [Devin Teske - Jail Networking, MeetBSD 2016](https://www.youtube.com/watch?v=aoW7pWuhT_A)
 - [FreeBSD 12 Jail with IPv6, VNET and ZFS](https://medium.com/@melanj/how-to-configure-a-globally-routable-freebsd-12-jail-with-ipv6-vnet-and-zfs-4c750ef31b80)
+- [Stefan Grönke: Imprisoning software with libiocage -- BSDCan 2018](https://www.youtube.com/watch?v=CTGc3zYToh0)
