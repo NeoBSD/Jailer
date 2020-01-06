@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"os/exec"
 
 	"github.com/sirupsen/logrus"
@@ -32,8 +33,10 @@ func RunTopCommand(cmd *cobra.Command, args []string) {
 	// effect.  This is the default on a dumb terminal, or when the
 	// output is not a terminal.
 
+	fmt.Printf("Arg: %s\n", args[0])
+
 	externalCMD := "top"
-	c := exec.Command(externalCMD, "-jb", "2")
+	c := exec.Command(externalCMD, "-jb", args[0])
 
 	stdout, err := c.Output()
 	if err != nil {
@@ -41,7 +44,7 @@ func RunTopCommand(cmd *cobra.Command, args []string) {
 		return
 	}
 
-	logrus.Print(string(stdout))
+	fmt.Print(string(stdout))
 
 }
 
