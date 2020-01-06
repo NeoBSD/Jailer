@@ -31,9 +31,9 @@ RUN echo "Hello Jailer!"
 
 ### Supported commands
 
-Most commands need to run as `root`:
+Not all commands are implemented yet. Most commands need to run as `root`:
 
-```sh
+```text
 Usage:
   jailer [flags]
   jailer [command]
