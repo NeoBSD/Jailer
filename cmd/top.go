@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 
 	"github.com/sirupsen/logrus"
@@ -33,10 +34,13 @@ func RunTopCommand(cmd *cobra.Command, args []string) {
 	// effect.  This is the default on a dumb terminal, or when the
 	// output is not a terminal.
 
-	fmt.Printf("Arg: %s\n", args[0])
+	if len(args) < 1 {
+		fmt.Println("No jail id or name given.")
+		os.Exit(1)
+	}
 
 	externalCMD := "top"
-	c := exec.Command(externalCMD, "-jb", args[0])
+	c := exec.Command(externalCMD, "-J", args[0], "-b")
 
 	stdout, err := c.Output()
 	if err != nil {
