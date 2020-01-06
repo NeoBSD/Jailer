@@ -1,0 +1,4 @@
+FROM freebsd
+
+RUN echo "Hello Jailer!"
+RUN pkg install -y nano

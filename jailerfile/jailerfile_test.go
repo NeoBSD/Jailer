@@ -103,3 +103,41 @@ func TestFromWithExplicitVersionParsing(t *testing.T) {
 	}
 
 }
+
+func TestRunParsing(t *testing.T) {
+
+	jf, err := jailerfile.NewFromFile("testdata/run/Jailerfile")
+
+	if err != nil {
+		t.Errorf("Error %v", err)
+	}
+
+	if len(jf.Instructions) != 2 {
+		t.Errorf("Expected: %d, got %d", 2, len(jf.Instructions))
+	}
+
+	t.Run("first", func(t *testing.T) {
+		if jf.Instructions[0].Name() != "RUN" {
+			t.Errorf("Expected: %s, got %s", "RUN", jf.Instructions[0].Name())
+		}
+
+		val := jf.Instructions[0].(*jailerfile.RunInstruction)
+		expected := "echo \"Hello Jailer!\""
+		if val.Command != expected {
+			t.Errorf("Expected: %s, got %s", "RUN", val.Command)
+		}
+	})
+
+	t.Run("second", func(t *testing.T) {
+		if jf.Instructions[1].Name() != "RUN" {
+			t.Errorf("Expected: %s, got %s", "RUN", jf.Instructions[1].Name())
+		}
+
+		val := jf.Instructions[1].(*jailerfile.RunInstruction)
+		expected := "pkg install -y nano"
+		if val.Command != expected {
+			t.Errorf("Expected: %s, got %s", expected, val.Command)
+		}
+	})
+
+}
