@@ -12,7 +12,6 @@ import (
 var topCmd = &cobra.Command{
 	Use:   "top [jail_id/jail_name]",
 	Short: "Run top inside a jail",
-	Args:  cobra.MinimumNArgs(1),
 	RunE:  RunTopCommand,
 }
 
@@ -34,7 +33,7 @@ func RunTopCommand(cmd *cobra.Command, args []string) error {
 	// output is not a terminal.
 
 	if len(args) < 1 {
-		errors.New("requires a jail id/name argument")
+		return errors.New("requires a jail id/name argument")
 	}
 
 	externalCMD := "top"
@@ -47,6 +46,7 @@ func RunTopCommand(cmd *cobra.Command, args []string) error {
 
 	fmt.Print(string(stdout))
 
+	return nil
 }
 
 func init() {
