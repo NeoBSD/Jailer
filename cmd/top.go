@@ -1,24 +1,23 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
-	"os"
 	"os/exec"
 
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
 // topCmd represents the config sub command
 var topCmd = &cobra.Command{
-	Use:   "top",
-	Short: "Top inside a container",
-	Long:  ``,
-	Run:   RunTopCommand,
+	Use:   "top [jail_id/jail_name]",
+	Short: "Run top inside a jail",
+	Args:  cobra.MinimumNArgs(1),
+	RunE:  RunTopCommand,
 }
 
 // RunTopCommand ...
-func RunTopCommand(cmd *cobra.Command, args []string) {
+func RunTopCommand(cmd *cobra.Command, args []string) error {
 
 	// -j
 	// Display the jail(8) ID.
@@ -35,8 +34,7 @@ func RunTopCommand(cmd *cobra.Command, args []string) {
 	// output is not a terminal.
 
 	if len(args) < 1 {
-		fmt.Println("No jail id or name given.")
-		os.Exit(1)
+		errors.New("requires a jail id/name argument")
 	}
 
 	externalCMD := "top"
@@ -44,8 +42,7 @@ func RunTopCommand(cmd *cobra.Command, args []string) {
 
 	stdout, err := c.Output()
 	if err != nil {
-		logrus.Error(err)
-		return
+		return err
 	}
 
 	fmt.Print(string(stdout))
