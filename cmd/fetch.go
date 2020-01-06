@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
@@ -12,22 +12,21 @@ import (
 var fetchCmd = &cobra.Command{
 	Use:   "fetch",
 	Short: "Fetch base from FreeBSD mirror",
-	RunE:  RunFetchCommand,
+	Run:   RunFetchCommand,
 }
 
 // RunFetchCommand ...
-func RunFetchCommand(cmd *cobra.Command, args []string) error {
+func RunFetchCommand(cmd *cobra.Command, args []string) {
 
 	// Get OS version
 	c := exec.Command("freebsd-version")
 	stdout, err := c.Output()
 	if err != nil {
-		return fmt.Errorf("While executing external command: %v", err.Error())
+		fmt.Fprintf(os.Stderr, "While executing external command: %v", err)
+		os.Exit(ExitFailure)
 	}
 
-	logrus.Print(string(stdout))
-
-	return nil
+	fmt.Print(string(stdout))
 }
 
 func init() {

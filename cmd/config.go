@@ -1,7 +1,9 @@
 package cmd
 
 import (
-	"github.com/sirupsen/logrus"
+	"fmt"
+	"os"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -16,9 +18,9 @@ var configCmd = &cobra.Command{
 
 // RunConfigCommand ...
 func RunConfigCommand(cmd *cobra.Command, args []string) {
-	logrus.Printf("Verbose: %v\n", viper.Get("verbose"))
-
+	fmt.Fprintf(os.Stdout, "Verbose: %v\n", viper.Get("verbose"))
 }
+
 func init() {
 	rootCmd.AddCommand(configCmd)
 }

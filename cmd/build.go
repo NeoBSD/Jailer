@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
@@ -37,7 +37,8 @@ func RunBuildCommand(cmd *cobra.Command, args []string) {
 	// Write to *.conf file
 	err := jail.WriteConfig(j)
 	if err != nil {
-		logrus.Fatal(err)
+		fmt.Fprintf(os.Stderr, "%v", err)
+		os.Exit(ExitFailure)
 	}
 }
 
