@@ -20,7 +20,7 @@ This software is in it's infancy. Use at your own risk. Have fun.
 
 ### Jailerfile
 
-A container can be described in a `Jailerfile`. The goal is to keep the syntax as similar to a `Dockerfile` as possible.
+A jail can be described in a `Jailerfile`. The goal is to keep the syntax as similar to a `Dockerfile` as possible.
 
 **Example**:
 
@@ -34,11 +34,29 @@ RUN echo "Hello Jailer!"
 Most commands need to run as `root`:
 
 ```sh
-jailer help
-jailer version
-jailer config
-jailer storage
-jailer top $CONTAINER
+Usage:
+  jailer [flags]
+  jailer [command]
+
+Available Commands:
+  build       Builds a jailer jail
+  config      Print current config
+  fetch       Fetch base from FreeBSD mirror
+  help        Help about any command
+  init        Init for jailer. Creates zfs datasets
+  playground  Subcommand for development only
+  rm          Remove a jail
+  run         Runs a jailer jail
+  storage     Manages jail & image storage
+  top         Run top inside a jail
+  version     Print current version
+
+Flags:
+  -c, --config string   Config file (default is $CWD/config.yaml)
+  -h, --help            help for jailer
+  -v, --verbose         Verbose output
+
+Use "jailer [command] --help" for more information about a command.
 ```
 
 ## Development

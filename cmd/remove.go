@@ -12,7 +12,7 @@ import (
 // removeCmd represents the config sub command
 var removeCmd = &cobra.Command{
 	Use:   "rm [ID]",
-	Short: "Remove a container",
+	Short: "Remove a jail",
 	Args:  cobra.MinimumNArgs(1),
 	RunE:  RunRemoveCommand,
 }

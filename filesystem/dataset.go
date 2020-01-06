@@ -7,7 +7,7 @@ import (
 	"os/exec"
 )
 
-// NewDataset creates a zfs dataset for container storage
+// NewDataset creates a zfs dataset for jail storage
 func NewDataset(path string) error {
 	// Setup external zfs list
 	zfsCMD := "zfs"

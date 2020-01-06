@@ -10,7 +10,7 @@ import (
 // storageCmd represents the storage sub command
 var storageCmd = &cobra.Command{
 	Use:   "storage",
-	Short: "Manages container & image storage",
+	Short: "Manages jail & image storage",
 	Long:  ``,
 	Run:   RunStorageCommand,
 }

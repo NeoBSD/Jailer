@@ -60,11 +60,11 @@ func createDatasets(root string) {
 	}
 	logrus.Info("Base dataset created")
 
-	// Create containers dataset. Storage for containers
-	containersRoot := fmt.Sprintf("%s/containers", root)
-	err = filesystem.NewDataset(containersRoot)
+	// Create jails dataset. Storage for jails
+	jailsRoot := fmt.Sprintf("%s/jails", root)
+	err = filesystem.NewDataset(jailsRoot)
 	if err != nil {
 		logrus.Fatalf("Error while creating the config dataset: %v", err)
 	}
-	logrus.Info("Containers dataset created")
+	logrus.Info("Jails dataset created")
 }

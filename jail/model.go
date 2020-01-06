@@ -1,6 +1,6 @@
 package jail
 
-// Jail represents a single jail/container config
+// Jail represents a single jail config
 type Jail struct {
 	Name       string `json:"name"`
 	Hostname   string `json:"hostname"`

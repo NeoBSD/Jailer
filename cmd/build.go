@@ -13,7 +13,7 @@ import (
 // buildCmd represents the `build` sub command
 var buildCmd = &cobra.Command{
 	Use:   "build",
-	Short: "Builds a jailer container",
+	Short: "Builds a jailer jail",
 	Long:  ``,
 	Run:   RunBuildCommand,
 }
@@ -25,7 +25,7 @@ func RunBuildCommand(cmd *cobra.Command, args []string) {
 	ip := "10.23.0.55"
 
 	// Create config
-	container := jail.Jail{
+	j := jail.Jail{
 		Name:      name,
 		Hostname:  fmt.Sprintf("%s.jailer.com", name),
 		IP:        ip,
@@ -35,7 +35,7 @@ func RunBuildCommand(cmd *cobra.Command, args []string) {
 	}
 
 	// Write to *.conf file
-	err := jail.WriteConfig(container)
+	err := jail.WriteConfig(j)
 	if err != nil {
 		logrus.Fatal(err)
 	}
