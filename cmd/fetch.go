@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os/exec"
 
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
@@ -24,7 +25,7 @@ func RunFetchCommand(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("While executing external command: %v", err.Error())
 	}
 
-	fmt.Print(string(stdout))
+	logrus.Print(string(stdout))
 
 	return nil
 }

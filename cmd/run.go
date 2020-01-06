@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -27,7 +26,7 @@ func RunRunCommand(cmd *cobra.Command, args []string) {
 	// Find working directory.
 	dir, err := os.Getwd()
 	if err != nil {
-		fmt.Println(err)
+		logrus.Error(err)
 		os.Exit(1)
 	}
 

@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"os"
 	"os/user"
 
@@ -41,14 +40,12 @@ func PreRunRootCommand(cmd *cobra.Command, args []string) {
 
 // RunRootCommand runs if no subcommand was selected.
 func RunRootCommand(cmd *cobra.Command, args []string) {
-	fmt.Printf("Jailer\n")
-
 }
 
 // Execute is the main entry point for the cli
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
+		logrus.Errorln(err)
 		os.Exit(1)
 	}
 }
@@ -73,7 +70,7 @@ func initConfig() {
 		// Find pwd
 		dir, err := os.Getwd()
 		if err != nil {
-			fmt.Println(err)
+			logrus.Error(err)
 			os.Exit(1)
 		}
 
@@ -91,7 +88,7 @@ func initConfig() {
 	}
 
 	if err := viper.ReadInConfig(); err != nil {
-		fmt.Println("Can't read config:", err)
+		logrus.Errorf("Can't read config: %v\n", err)
 		os.Exit(1)
 	}
 }

@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"fmt"
 	"os/exec"
 
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
@@ -37,11 +37,11 @@ func RunTopCommand(cmd *cobra.Command, args []string) {
 
 	stdout, err := c.Output()
 	if err != nil {
-		fmt.Println(err.Error())
+		logrus.Error(err)
 		return
 	}
 
-	fmt.Print(string(stdout))
+	logrus.Print(string(stdout))
 
 }
 

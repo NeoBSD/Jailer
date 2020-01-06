@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os/exec"
 
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -30,7 +31,7 @@ func RunRemoveCommand(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("Error while executing external command: %v", err.Error())
 	}
 
-	fmt.Print(string(stdout))
+	logrus.Print(string(stdout))
 
 	return nil
 }

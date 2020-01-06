@@ -19,6 +19,7 @@ var versionCmd = &cobra.Command{
 
 // RunVersionCommand prints the current jailer version
 func RunVersionCommand(cmd *cobra.Command, args []string) error {
+
 	if viper.Get("verbose") == true {
 		fmt.Printf("Version: %s\n", runtime.Version)
 		fmt.Printf("Commit: %s\n", runtime.BuildCommit)
