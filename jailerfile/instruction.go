@@ -1,5 +1,7 @@
 package jailerfile
 
+import "github.com/tobiashienzsch/jailer/util"
+
 // Instruction represents any Jailerfile instruction.
 type Instruction interface {
 	Execute() error
@@ -44,7 +46,7 @@ func (r RunInstruction) Name() string {
 
 // Parse parses the source string
 func (r *RunInstruction) Parse(input string) error {
-	r.Command = cleanString(input)
+	r.Command = util.CleanString(input)
 	return nil
 }
 
@@ -65,7 +67,7 @@ func (w WorkDirInstruction) Name() string {
 
 // Parse parses the source string
 func (w *WorkDirInstruction) Parse(input string) error {
-	w.Command = cleanString(input)
+	w.Command = util.CleanString(input)
 	return nil
 }
 
@@ -86,7 +88,7 @@ func (c CopyInstruction) Name() string {
 
 // Parse parses the source string
 func (c *CopyInstruction) Parse(input string) error {
-	c.Command = cleanString(input)
+	c.Command = util.CleanString(input)
 	return nil
 }
 
@@ -107,6 +109,6 @@ func (c CmdInstruction) Name() string {
 
 // Parse parses the source string
 func (c *CmdInstruction) Parse(input string) error {
-	c.Command = cleanString(input)
+	c.Command = util.CleanString(input)
 	return nil
 }

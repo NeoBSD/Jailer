@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/tobiashienzsch/jailer/util"
 )
 
 // BaseImage ...
@@ -51,17 +53,17 @@ func NewFromFile(path string) (*Jailerfile, error) {
 		switch elements[0] {
 		case Label:
 			label := strings.Split(str, "=")
-			key := cleanString(label[0])
-			value := cleanString(label[1])
+			key := util.CleanString(label[0])
+			value := util.CleanString(label[1])
 			result.Labels[key] = value
 		case From:
 			base := strings.Split(str, ":")
-			name := cleanString(base[0])
+			name := util.CleanString(base[0])
 			result.BaseImage.Name = name
 			result.BaseImage.Version = "latest"
 
 			if len(base) == 2 {
-				result.BaseImage.Version = cleanString(base[1])
+				result.BaseImage.Version = util.CleanString(base[1])
 			}
 		case Run:
 			run := &RunInstruction{}
