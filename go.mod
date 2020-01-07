@@ -1,6 +1,7 @@
 module github.com/tobiashienzsch/jailer
 
 require (
+	github.com/dustin/go-humanize v1.0.0
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/sirupsen/logrus v1.4.2
