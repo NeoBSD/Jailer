@@ -124,7 +124,7 @@ func TestRunParsing(t *testing.T) {
 		val := jf.Instructions[0].(*jailerfile.RunInstruction)
 		expected := "echo \"Hello Jailer!\""
 		if val.Command != expected {
-			t.Errorf("Expected: %s, got %s", "RUN", val.Command)
+			t.Errorf("Expected: %s, got %s", expected, val.Command)
 		}
 	})
 
@@ -139,5 +139,29 @@ func TestRunParsing(t *testing.T) {
 			t.Errorf("Expected: %s, got %s", expected, val.Command)
 		}
 	})
+
+}
+
+func TestWorkDirParsing(t *testing.T) {
+
+	jf, err := jailerfile.NewFromFile("testdata/workdir/Jailerfile")
+
+	if err != nil {
+		t.Errorf("Error %v", err)
+	}
+
+	if len(jf.Instructions) != 1 {
+		t.Errorf("Expected: %d, got %d", 2, len(jf.Instructions))
+	}
+
+	if jf.Instructions[0].Name() != "WORKDIR" {
+		t.Errorf("Expected: %s, got %s", "WORKDIR", jf.Instructions[0].Name())
+	}
+
+	val := jf.Instructions[0].(*jailerfile.WorkDirInstruction)
+	expected := "/work"
+	if val.Command != expected {
+		t.Errorf("Expected: %s, got %s", expected, val.Command)
+	}
 
 }

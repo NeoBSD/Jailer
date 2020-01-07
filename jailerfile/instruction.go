@@ -4,7 +4,7 @@ import "github.com/tobiashienzsch/jailer/util"
 
 // Instruction represents any Jailerfile instruction.
 type Instruction interface {
-	Execute() error
+	// Execute() error
 	Name() string
 	Parse(source string) error
 }
@@ -12,11 +12,6 @@ type Instruction interface {
 // FromInstruction specifies te base jail
 type FromInstruction struct {
 	From string `json:"from"`
-}
-
-// Execute is run inside the jail
-func (f FromInstruction) Execute() error {
-	return nil
 }
 
 // Name returns the instruction identifier
@@ -32,11 +27,6 @@ func (f FromInstruction) Parse(input string) error {
 // RunInstruction executes a command at build time inside the jail
 type RunInstruction struct {
 	Command string `json:"run"`
-}
-
-// Execute is run inside the jail
-func (r RunInstruction) Execute() error {
-	return nil
 }
 
 // Name returns the instruction identifier
@@ -55,11 +45,6 @@ type WorkDirInstruction struct {
 	Command string `json:"work_dir"`
 }
 
-// Execute is run inside the jail
-func (w WorkDirInstruction) Execute() error {
-	return nil
-}
-
 // Name returns the instruction identifier
 func (w WorkDirInstruction) Name() string {
 	return "WORKDIR"
@@ -76,11 +61,6 @@ type CopyInstruction struct {
 	Command string `json:"copy"`
 }
 
-// Execute is run inside the jail
-func (c CopyInstruction) Execute() error {
-	return nil
-}
-
 // Name returns the instruction identifier
 func (c CopyInstruction) Name() string {
 	return "COPY"
@@ -95,11 +75,6 @@ func (c *CopyInstruction) Parse(input string) error {
 // CmdInstruction sets the working directory at build time inside the jail
 type CmdInstruction struct {
 	Command string `json:"cmd"`
-}
-
-// Execute is run inside the jail
-func (c CmdInstruction) Execute() error {
-	return nil
 }
 
 // Name returns the instruction identifier
