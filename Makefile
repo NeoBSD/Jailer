@@ -23,11 +23,15 @@ build:
 
 .PHONY: test
 test:
-	go test ./...
+	go test -race ./...
 
 .PHONY: coverage
 coverage:
-	go test -coverprofile coverage.out ./...
+	go test -race -coverprofile coverage.out ./...
+
+.PHONY: coverage-html
+coverage-html: coverage
+	go tool cover -html=coverage.out
 
 .PHONY: clean
 clean:
