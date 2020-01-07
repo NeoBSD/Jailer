@@ -2,10 +2,9 @@ package util
 
 import "strings"
 
-// CleanString removes spaces & newlines in a string
+// CleanString removes leading spaces & newlines in a string
 func CleanString(input string) string {
-	cleaned := strings.Replace(input, " ", "", -1)
-	cleaned = strings.TrimLeft(input, " ")
+	cleaned := strings.TrimLeft(input, " ")
 	cleaned = strings.Replace(cleaned, "\n", "", -1)
 	cleaned = strings.Replace(cleaned, "\r", "", -1)
 	return cleaned
