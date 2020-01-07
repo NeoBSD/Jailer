@@ -22,7 +22,7 @@ var rootCmd = &cobra.Command{
 // PreRunRootCommand gets called before every command & subcommand
 func PreRunRootCommand(cmd *cobra.Command, args []string) {
 	// Skip root user check for 'version' subcommand
-	if cmd.Name() == "version" {
+	if cmd.Name() == "version" || cmd.Name() == "playground" {
 		return
 	}
 

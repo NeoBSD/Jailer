@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/tobiashienzsch/jailer/jailerfile"
 )
@@ -32,7 +31,8 @@ func RunPlaygroundCommand(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	logrus.Print(string(data))
+	fmt.Print(string(data))
+
 }
 
 func init() {
