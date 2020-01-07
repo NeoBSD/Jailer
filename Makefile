@@ -43,3 +43,7 @@ clean:
 .PHONY: format
 format:
 	goimports -w .
+
+.PHONY: stats
+stats:
+	cloc --by-file .
