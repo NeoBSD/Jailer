@@ -5,8 +5,8 @@ import (
 	"os"
 	"os/exec"
 
+	"github.com/NeoBSD/jailer/jail"
 	"github.com/spf13/cobra"
-	"github.com/tobiashienzsch/jailer/jail"
 )
 
 // fetchCmd represents the config sub command

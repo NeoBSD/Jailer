@@ -9,7 +9,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	"github.com/tobiashienzsch/jailer/jailerfile"
+	"github.com/NeoBSD/jailer/jailerfile"
 )
 
 // runCmd represents the config sub command

@@ -6,7 +6,7 @@ package jail_test
 // 	"os"
 // 	"testing"
 
-// 	"github.com/tobiashienzsch/jailer/jail"
+// 	"github.com/NeoBSD/jailer/jail"
 // )
 
 // // fileExists checks if a file exists and is not a directory before we
@@ -27,7 +27,7 @@ package jail_test
 // 	}
 // 	defer os.Remove(file.Name())
 
-// 	url := "https://raw.githubusercontent.com/tobiashienzsch/jailer/master/README.md"
+// 	url := "https://raw.githubusercontent.com/NeoBSD/jailer/master/README.md"
 // 	filepath := file.Name()
 // 	err = jail.DownloadFile(filepath, url)
 

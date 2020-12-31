@@ -3,7 +3,7 @@ package jail_test
 import (
 	"testing"
 
-	"github.com/tobiashienzsch/jailer/jail"
+	"github.com/NeoBSD/jailer/jail"
 )
 
 func TestParseJLSOutputEmpty(t *testing.T) {

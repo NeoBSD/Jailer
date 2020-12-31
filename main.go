@@ -5,8 +5,8 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/tobiashienzsch/jailer/cmd"
-	"github.com/tobiashienzsch/jailer/runtime"
+	"github.com/NeoBSD/jailer/cmd"
+	"github.com/NeoBSD/jailer/runtime"
 )
 
 // These variables get set during link time. See Makefile

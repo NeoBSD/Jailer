@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/tobiashienzsch/jailer/runtime"
+	"github.com/NeoBSD/jailer/runtime"
 )
 
 // versionCmd represents the version sub command

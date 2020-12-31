@@ -1,6 +1,6 @@
 package jailerfile
 
-import "github.com/tobiashienzsch/jailer/util"
+import "github.com/NeoBSD/jailer/util"
 
 // Instruction represents any Jailerfile instruction.
 type Instruction interface {

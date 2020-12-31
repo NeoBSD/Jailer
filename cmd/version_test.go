@@ -3,7 +3,7 @@ package cmd_test
 import (
 	"testing"
 
-	"github.com/tobiashienzsch/jailer/cmd"
+	"github.com/NeoBSD/jailer/cmd"
 )
 
 func TestRunVersionCommand(t *testing.T) {

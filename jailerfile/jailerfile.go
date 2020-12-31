@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/tobiashienzsch/jailer/util"
+	"github.com/NeoBSD/jailer/util"
 )
 
 // BaseImage ...

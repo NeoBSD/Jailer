@@ -6,7 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	"github.com/tobiashienzsch/jailer/filesystem"
+	"github.com/NeoBSD/jailer/filesystem"
 )
 
 // initCmd represents the config sub command

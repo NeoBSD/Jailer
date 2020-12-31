@@ -3,7 +3,7 @@ package util_test
 import (
 	"testing"
 
-	"github.com/tobiashienzsch/jailer/util"
+	"github.com/NeoBSD/jailer/util"
 )
 
 func TestCleanString(t *testing.T) {

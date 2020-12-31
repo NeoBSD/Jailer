@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/NeoBSD/jailer/jailerfile"
 	"github.com/spf13/cobra"
-	"github.com/tobiashienzsch/jailer/jailerfile"
 )
 
 // playgroundCmd represents the `build` sub command

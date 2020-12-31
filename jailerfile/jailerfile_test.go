@@ -3,7 +3,7 @@ package jailerfile_test
 import (
 	"testing"
 
-	"github.com/tobiashienzsch/jailer/jailerfile"
+	"github.com/NeoBSD/jailer/jailerfile"
 )
 
 func TestNewFromFile(t *testing.T) {

@@ -14,7 +14,7 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:              "jailer",
 	Short:            "jailer",
-	Long:             `jailer https://github.com/tobiashienzsch/jailer`,
+	Long:             `jailer https://github.com/NeoBSD/jailer`,
 	PersistentPreRun: PreRunRootCommand,
 	Run:              RunRootCommand,
 }
