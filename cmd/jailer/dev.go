@@ -9,15 +9,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// playgroundCmd represents the `playground` sub command
-var playgroundCmd = &cobra.Command{
-	Use:   "playground",
+// devCmd represents the `dev` sub command
+var devCmd = &cobra.Command{
+	Use:   "dev",
 	Short: "Subcommand for development only",
-	Run:   RunPlaygroundCommand,
+	Run:   RunDevCommand,
 }
 
-// RunPlaygroundCommand executes the playground subcommand.
-func RunPlaygroundCommand(cmd *cobra.Command, args []string) {
+// RunDevCommand executes the dev subcommand.
+func RunDevCommand(cmd *cobra.Command, args []string) {
 	jf, err := jailer.NewFromFile("example/Jailerfile")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%v\n", err)
@@ -35,5 +35,5 @@ func RunPlaygroundCommand(cmd *cobra.Command, args []string) {
 }
 
 func init() {
-	rootCmd.AddCommand(playgroundCmd)
+	rootCmd.AddCommand(devCmd)
 }

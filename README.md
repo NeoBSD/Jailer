@@ -41,12 +41,12 @@ Usage:
 Available Commands:
   build       Build an image from a Jailerfile
   config      Print current config
+  dev         Subcommand for development only
   exec        Execute a command inside an existing jail
   fetch       Fetch base from FreeBSD mirror
   help        Help about any command
   info        Display system-wide information
   init        Init for jailer. Creates zfs datasets
-  playground  Subcommand for development only
   ps          List active jails
   restart     Restart one or more jails
   rm          Remove one or more jails
