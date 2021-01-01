@@ -18,19 +18,7 @@ var rootCmd = &cobra.Command{
 	Use:   "jailer",
 	Short: "jailer",
 	Long:  `jailer https://github.com/NeoBSD/jailer`,
-	Run:   RunRootCommand,
-}
-
-// RunRootCommand runs if no subcommand was selected.
-func RunRootCommand(cmd *cobra.Command, args []string) {
-}
-
-// Execute is the main entry point for the cli
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		logrus.Errorln(err)
-		os.Exit(1)
-	}
+	Run:   nil,
 }
 
 func init() {
