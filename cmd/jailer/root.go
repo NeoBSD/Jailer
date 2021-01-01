@@ -29,7 +29,10 @@ func init() {
 	// Flags
 	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "Config file (default is $PWD/jailer.yaml)")
 	rootCmd.PersistentFlags().BoolP("verbose", "v", false, "Verbose output")
+	rootCmd.PersistentFlags().Bool("json", false, "JSON output")
+
 	viper.BindPFlag("verbose", rootCmd.PersistentFlags().Lookup("verbose"))
+	viper.BindPFlag("json", rootCmd.PersistentFlags().Lookup("json"))
 
 }
 
@@ -54,13 +57,17 @@ func initConfig() {
 	}
 
 	// Set log level
-	// TODO: set via jailer.yml
 	if viper.Get("verbose") == true {
 		logrus.SetLevel(logrus.InfoLevel)
 	}
 
 	if err := viper.ReadInConfig(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			// Config file not found; ignore error if desired
+		} else {
+			// Config file was found but another error was produced
+			fmt.Println(err)
+			os.Exit(1)
+		}
 	}
 }
