@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"text/tabwriter"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -20,11 +22,14 @@ var versionCmd = &cobra.Command{
 func RunVersionCommand(cmd *cobra.Command, args []string) error {
 
 	if viper.Get("verbose") == true {
-		fmt.Printf("Version: %s\n", jailer.Version)
-		fmt.Printf("Commit: %s\n", jailer.BuildCommit)
-		fmt.Printf("Date: %s\n", jailer.BuildDate)
-		fmt.Printf("Build on: %s\n", jailer.BuildOS)
-		return nil
+		const padding = 3
+		w := tabwriter.NewWriter(os.Stdout, 0, 0, padding, ' ', 0)
+		fmt.Fprintf(w, "Version\t%s\t\n", jailer.Version)
+		fmt.Fprintf(w, "Date\t%s\t\n", jailer.BuildDate)
+		fmt.Fprintf(w, "Commit\t%s\t\n", jailer.BuildCommit)
+		fmt.Fprintf(w, "BuildOS\t%s\t\n", jailer.BuildOS)
+
+		return w.Flush()
 	}
 
 	fmt.Printf("%s-%s\n", jailer.Version, jailer.BuildCommit)
