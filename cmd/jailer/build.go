@@ -7,8 +7,8 @@ import (
 // buildCmd represents the `build` sub command
 var buildCmd = &cobra.Command{
 	Use:   "build",
-	Short: "Builds a jailer jail",
-	Long:  ``,
+	Short: "Build an image from a Jailerfile",
+	Args:  cobra.MinimumNArgs(1),
 	Run:   RunBuildCommand,
 }
 

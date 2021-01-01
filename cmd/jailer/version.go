@@ -13,7 +13,6 @@ import (
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print current version",
-	Long:  ``,
 	RunE:  RunVersionCommand,
 }
 

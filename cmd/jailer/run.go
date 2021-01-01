@@ -15,8 +15,7 @@ import (
 // runCmd represents the config sub command
 var runCmd = &cobra.Command{
 	Use:   "run",
-	Short: "Runs a jailer jail",
-	Long:  ``,
+	Short: "Run a command in a new jail",
 	Run:   RunRunCommand,
 }
 

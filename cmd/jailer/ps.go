@@ -13,7 +13,6 @@ import (
 var psCmd = &cobra.Command{
 	Use:   "ps",
 	Short: "List active jails",
-	Long:  ``,
 	RunE:  RunPsCommand,
 }
 

@@ -12,6 +12,7 @@ import (
 var topCmd = &cobra.Command{
 	Use:   "top [jail_id/jail_name]",
 	Short: "Run top inside a jail",
+	Args:  cobra.MinimumNArgs(1),
 	RunE:  RunTopCommand,
 }
 

@@ -12,7 +12,6 @@ import (
 var configCmd = &cobra.Command{
 	Use:   "config",
 	Short: "Print current config",
-	Long:  ``,
 	Run:   RunConfigCommand,
 }
 

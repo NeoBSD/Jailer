@@ -11,7 +11,7 @@ import (
 var stopCmd = &cobra.Command{
 	Use:   "stop [jail_id/jail_name]",
 	Short: "Stop one or more running jails",
-	Long:  ``,
+	Args:  cobra.MinimumNArgs(1),
 	RunE:  RunStopCommand,
 }
 

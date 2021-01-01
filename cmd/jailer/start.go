@@ -11,7 +11,7 @@ import (
 var startCmd = &cobra.Command{
 	Use:   "start [jail_id/jail_name]",
 	Short: "Start one or more stopped jails",
-	Long:  ``,
+	Args:  cobra.MinimumNArgs(1),
 	RunE:  RunStartCommand,
 }
 

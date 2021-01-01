@@ -11,7 +11,6 @@ import (
 var execCmd = &cobra.Command{
 	Use:   "exec [jail_id/jail_name] command",
 	Short: "Execute a command inside an existing jail",
-	Long:  ``,
 	RunE:  RunExecCommand,
 }
 

@@ -9,15 +9,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// playgroundCmd represents the `build` sub command
+// playgroundCmd represents the `playground` sub command
 var playgroundCmd = &cobra.Command{
 	Use:   "playground",
 	Short: "Subcommand for development only",
-	Long:  ``,
 	Run:   RunPlaygroundCommand,
 }
 
-// RunPlaygroundCommand executes the build subcommand.
+// RunPlaygroundCommand executes the playground subcommand.
 func RunPlaygroundCommand(cmd *cobra.Command, args []string) {
 	jf, err := jailer.NewFromFile("example/Jailerfile")
 	if err != nil {
