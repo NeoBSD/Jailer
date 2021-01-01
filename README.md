@@ -39,24 +39,27 @@ Usage:
   jailer [command]
 
 Available Commands:
-  build       Builds a jailer jail
+  build       Build an image from a Jailerfile
   config      Print current config
+  exec        Execute a command inside an existing jail
   fetch       Fetch base from FreeBSD mirror
   help        Help about any command
+  info        Display system-wide information
   init        Init for jailer. Creates zfs datasets
   playground  Subcommand for development only
-  rm          Remove a jail
-  run         Runs a jailer jail
+  ps          List active jails
+  rm          Remove one or more jails
+  run         Run a command in a new jail
+  start       Start one or more stopped jails
+  stop        Stop one or more running jails
   storage     Manages jail & image storage
   top         Run top inside a jail
   version     Print current version
 
 Flags:
-  -c, --config string   Config file (default is $CWD/config.yaml)
+  -c, --config string   Config file (default is $PWD/config.yaml)
   -h, --help            help for jailer
   -v, --verbose         Verbose output
-
-Use "jailer [command] --help" for more information about a command.
 ```
 
 ## Development
