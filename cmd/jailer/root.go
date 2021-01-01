@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"os/user"
 
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -12,30 +11,10 @@ import (
 var cfgFile string
 
 var rootCmd = &cobra.Command{
-	Use:              "jailer",
-	Short:            "jailer",
-	Long:             `jailer https://github.com/NeoBSD/jailer`,
-	PersistentPreRun: PreRunRootCommand,
-	Run:              RunRootCommand,
-}
-
-// PreRunRootCommand gets called before every command & subcommand
-func PreRunRootCommand(cmd *cobra.Command, args []string) {
-	// Skip root user check for 'version' subcommand
-	if cmd.Name() == "version" || cmd.Name() == "playground" {
-		return
-	}
-
-	// Get current os user
-	user, err := user.Current()
-	if err != nil {
-		logrus.Warning("Could not get current user. Jailer should run as root")
-	}
-
-	// Check if jailer is running as root. Abort if not.
-	if user.Username != "root" {
-		logrus.Fatalf("Jailer should run as root. You are %v. Switch user or use sudo.", user.Username)
-	}
+	Use:   "jailer",
+	Short: "jailer",
+	Long:  `jailer https://github.com/NeoBSD/jailer`,
+	Run:   RunRootCommand,
 }
 
 // RunRootCommand runs if no subcommand was selected.
