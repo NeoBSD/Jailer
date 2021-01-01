@@ -1,4 +1,4 @@
-package jailerfile
+package jailer
 
 // Define constants for the command strings
 const (

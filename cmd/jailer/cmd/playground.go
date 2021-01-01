@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/NeoBSD/jailer/jailerfile"
+	"github.com/NeoBSD/jailer"
 	"github.com/spf13/cobra"
 )
 
@@ -19,7 +19,7 @@ var playgroundCmd = &cobra.Command{
 
 // RunPlaygroundCommand executes the build subcommand.
 func RunPlaygroundCommand(cmd *cobra.Command, args []string) {
-	jf, err := jailerfile.NewFromFile("example/Jailerfile")
+	jf, err := jailer.NewFromFile("example/Jailerfile")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%v\n", err)
 		os.Exit(1)

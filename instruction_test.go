@@ -1,23 +1,23 @@
-package jailerfile_test
+package jailer_test
 
 import (
 	"testing"
 
-	"github.com/NeoBSD/jailer/jailerfile"
+	"github.com/NeoBSD/jailer"
 )
 
 func TestInstructionNameToKeywordMapping(t *testing.T) {
 
 	var tests = []struct {
 		name     string
-		input    jailerfile.Instruction
+		input    jailer.Instruction
 		expected string
 	}{
-		{"copy", &jailerfile.CopyInstruction{}, jailerfile.Copy},
-		{"cmd", &jailerfile.CmdInstruction{}, jailerfile.Cmd},
-		{"from", &jailerfile.FromInstruction{}, jailerfile.From},
-		{"run", &jailerfile.RunInstruction{}, jailerfile.Run},
-		{"workdir", &jailerfile.WorkDirInstruction{}, jailerfile.WorkDir},
+		{"copy", &jailer.CopyInstruction{}, jailer.Copy},
+		{"cmd", &jailer.CmdInstruction{}, jailer.Cmd},
+		{"from", &jailer.FromInstruction{}, jailer.From},
+		{"run", &jailer.RunInstruction{}, jailer.Run},
+		{"workdir", &jailer.WorkDirInstruction{}, jailer.WorkDir},
 	}
 
 	for _, tt := range tests {
@@ -45,7 +45,7 @@ func TestCopyInstructionParsing(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			copy := &jailerfile.CopyInstruction{}
+			copy := &jailer.CopyInstruction{}
 			copy.Parse(tt.input)
 			actual := copy.Command
 			if actual != tt.expected {

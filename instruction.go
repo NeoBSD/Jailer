@@ -1,4 +1,4 @@
-package jailerfile
+package jailer
 
 import "github.com/NeoBSD/jailer/util"
 

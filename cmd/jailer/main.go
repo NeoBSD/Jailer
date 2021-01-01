@@ -5,8 +5,8 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
+	"github.com/NeoBSD/jailer"
 	"github.com/NeoBSD/jailer/cmd/jailer/cmd"
-	"github.com/NeoBSD/jailer/runtime"
 )
 
 // These variables get set during link time. See Makefile
@@ -19,9 +19,9 @@ var (
 func init() {
 
 	// Set build info
-	runtime.BuildCommit = commit
-	runtime.BuildDate = date
-	runtime.BuildOS = hostOS
+	jailer.BuildCommit = commit
+	jailer.BuildDate = date
+	jailer.BuildOS = hostOS
 
 	// Log as JSON instead of the default ASCII formatter.
 	log.SetFormatter(&log.JSONFormatter{})

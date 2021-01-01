@@ -1,4 +1,4 @@
-package runtime
+package jailer
 
 var (
 	// Version is the sematic version of the binary

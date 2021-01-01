@@ -1,24 +1,24 @@
-package jailerfile_test
+package jailer_test
 
 import (
 	"testing"
 
-	"github.com/NeoBSD/jailer/jailerfile"
+	"github.com/NeoBSD/jailer"
 )
 
 func TestNewFromFile(t *testing.T) {
 
 	var tests = []struct {
 		input       string
-		expected    *jailerfile.Jailerfile
+		expected    *jailer.Jailerfile
 		expectError bool
 	}{
-		{"testdata/noexist/Jailerfile", &jailerfile.Jailerfile{}, true},
-		{"testdata/label/Jailerfile", &jailerfile.Jailerfile{BaseImage: jailerfile.BaseImage{Name: "freebsd", Version: "latest"}}, false},
+		{"testdata/noexist/Jailerfile", &jailer.Jailerfile{}, true},
+		{"testdata/label/Jailerfile", &jailer.Jailerfile{BaseImage: jailer.BaseImage{Name: "freebsd", Version: "latest"}}, false},
 	}
 
 	for _, tt := range tests {
-		actual, err := jailerfile.NewFromFile(tt.input)
+		actual, err := jailer.NewFromFile(tt.input)
 
 		// error
 		if tt.expectError != (err != nil) {
@@ -34,7 +34,7 @@ func TestNewFromFile(t *testing.T) {
 
 func TestLabelParsing(t *testing.T) {
 
-	jf, err := jailerfile.NewFromFile("testdata/label/Jailerfile")
+	jf, err := jailer.NewFromFile("testdata/label/Jailerfile")
 
 	if err != nil {
 		t.Errorf("Error %v", err)
@@ -52,7 +52,7 @@ func TestLabelParsing(t *testing.T) {
 
 func TestFromWithImplicitLatestParsing(t *testing.T) {
 
-	jf, err := jailerfile.NewFromFile("testdata/from/Jailerfile")
+	jf, err := jailer.NewFromFile("testdata/from/Jailerfile")
 
 	if err != nil {
 		t.Errorf("Error %v", err)
@@ -70,7 +70,7 @@ func TestFromWithImplicitLatestParsing(t *testing.T) {
 
 func TestFromWithExplicitLatestParsing(t *testing.T) {
 
-	jf, err := jailerfile.NewFromFile("testdata/from_with_latest/Jailerfile")
+	jf, err := jailer.NewFromFile("testdata/from_with_latest/Jailerfile")
 
 	if err != nil {
 		t.Errorf("Error %v", err)
@@ -88,7 +88,7 @@ func TestFromWithExplicitLatestParsing(t *testing.T) {
 
 func TestFromWithExplicitVersionParsing(t *testing.T) {
 
-	jf, err := jailerfile.NewFromFile("testdata/from_with_version/Jailerfile")
+	jf, err := jailer.NewFromFile("testdata/from_with_version/Jailerfile")
 
 	if err != nil {
 		t.Errorf("Error %v", err)
@@ -106,7 +106,7 @@ func TestFromWithExplicitVersionParsing(t *testing.T) {
 
 func TestRunParsing(t *testing.T) {
 
-	jf, err := jailerfile.NewFromFile("testdata/run/Jailerfile")
+	jf, err := jailer.NewFromFile("testdata/run/Jailerfile")
 
 	if err != nil {
 		t.Errorf("Error %v", err)
@@ -121,7 +121,7 @@ func TestRunParsing(t *testing.T) {
 			t.Errorf("Expected: %s, got %s", "RUN", jf.Instructions[0].Name())
 		}
 
-		val := jf.Instructions[0].(*jailerfile.RunInstruction)
+		val := jf.Instructions[0].(*jailer.RunInstruction)
 		expected := "echo \"Hello Jailer!\""
 		if val.Command != expected {
 			t.Errorf("Expected: %s, got %s", expected, val.Command)
@@ -133,7 +133,7 @@ func TestRunParsing(t *testing.T) {
 			t.Errorf("Expected: %s, got %s", "RUN", jf.Instructions[1].Name())
 		}
 
-		val := jf.Instructions[1].(*jailerfile.RunInstruction)
+		val := jf.Instructions[1].(*jailer.RunInstruction)
 		expected := "pkg install -y nano"
 		if val.Command != expected {
 			t.Errorf("Expected: %s, got %s", expected, val.Command)
@@ -144,7 +144,7 @@ func TestRunParsing(t *testing.T) {
 
 func TestWorkDirParsing(t *testing.T) {
 
-	jf, err := jailerfile.NewFromFile("testdata/workdir/Jailerfile")
+	jf, err := jailer.NewFromFile("testdata/workdir/Jailerfile")
 
 	if err != nil {
 		t.Errorf("Error %v", err)
@@ -158,7 +158,7 @@ func TestWorkDirParsing(t *testing.T) {
 		t.Errorf("Expected: %s, got %s", "WORKDIR", jf.Instructions[0].Name())
 	}
 
-	val := jf.Instructions[0].(*jailerfile.WorkDirInstruction)
+	val := jf.Instructions[0].(*jailer.WorkDirInstruction)
 	expected := "/work"
 	if val.Command != expected {
 		t.Errorf("Expected: %s, got %s", expected, val.Command)
