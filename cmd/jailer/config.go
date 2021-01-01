@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"text/tabwriter"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -12,12 +13,18 @@ import (
 var configCmd = &cobra.Command{
 	Use:   "config",
 	Short: "Print current config",
-	Run:   RunConfigCommand,
+	RunE:  RunConfigCommand,
 }
 
 // RunConfigCommand ...
-func RunConfigCommand(cmd *cobra.Command, args []string) {
-	fmt.Fprintf(os.Stdout, "Verbose: %v\n", viper.Get("verbose"))
+func RunConfigCommand(cmd *cobra.Command, args []string) error {
+	w := tabwriter.NewWriter(os.Stdout, 0, 0, tabWriterPadding, ' ', 0)
+	for _, key := range viper.AllKeys() {
+		value := viper.Get(key)
+		fmt.Fprintf(w, "%s\t%v\t\n", key, value)
+	}
+
+	return w.Flush()
 }
 
 func init() {
