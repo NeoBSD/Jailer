@@ -9,7 +9,7 @@ import (
 
 // stopCmd represents the `stop` sub command
 var stopCmd = &cobra.Command{
-	Use:   "stop [jail_id/jail_name]",
+	Use:   "stop JAILS [JAILS...]",
 	Short: "Stop one or more running jails",
 	Args:  cobra.MinimumNArgs(1),
 	RunE:  RunStopCommand,
@@ -17,9 +17,12 @@ var stopCmd = &cobra.Command{
 
 // RunStopCommand stoputes the `stop` subcommand.
 func RunStopCommand(cmd *cobra.Command, args []string) error {
-	id := args[0]
-	stop := exec.Command("service", "jail", "stop", id)
-	stdout, err := stop.Output()
+	// Convert arg slice to variadic pack
+	cmdArgs := []string{"jail", "stop"}
+	cmdArgs = append(cmdArgs, args...)
+
+	restart := exec.Command("service", cmdArgs...)
+	stdout, err := restart.Output()
 	if err != nil {
 		return err
 	}
