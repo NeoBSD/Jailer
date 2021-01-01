@@ -22,34 +22,34 @@ ${BINARY_DIR}:
 
 .PHONY: build
 build: ${BINARY_DIR}
-	go build -o ${BINARY_DIR}/${BINARY_NAME} ${LINKER_FLAGS}
+	go build -o ${BINARY_DIR}/${BINARY_NAME} ${LINKER_FLAGS} ./cmd/jailer
 
 .PHONY: cross
 cross: linux-amd64 linux-arm linux-arm64 fbsd-amd64 fbsd-arm fbsd-arm64
 
 .PHONY: linux-amd64
 linux-amd64: ${BINARY_DIR}
-	GOOS=linux GOARCH=amd64 go build -o ${BINARY_DIR}/${BINARY_NAME}-linux_amd64 ${LINKER_FLAGS}
+	GOOS=linux GOARCH=amd64 go build -o ${BINARY_DIR}/${BINARY_NAME}-linux_amd64 ${LINKER_FLAGS} ./cmd/jailer
 
 .PHONY: linux-arm
 linux-arm: ${BINARY_DIR}
-	GOOS=linux GOARCH=arm go build -o ${BINARY_DIR}/${BINARY_NAME}-linux_arm ${LINKER_FLAGS}
+	GOOS=linux GOARCH=arm go build -o ${BINARY_DIR}/${BINARY_NAME}-linux_arm ${LINKER_FLAGS} ./cmd/jailer
 
 .PHONY: linux-arm64
 linux-arm64: ${BINARY_DIR}
-	GOOS=linux GOARCH=arm64 go build -o ${BINARY_DIR}/${BINARY_NAME}-linux_arm64 ${LINKER_FLAGS}
+	GOOS=linux GOARCH=arm64 go build -o ${BINARY_DIR}/${BINARY_NAME}-linux_arm64 ${LINKER_FLAGS} ./cmd/jailer
 
 .PHONY: fbsd-amd64
 fbsd-amd64: ${BINARY_DIR}
-	GOOS=freebsd GOARCH=amd64 go build -o ${BINARY_DIR}/${BINARY_NAME}-fbsd_amd64 ${LINKER_FLAGS}
+	GOOS=freebsd GOARCH=amd64 go build -o ${BINARY_DIR}/${BINARY_NAME}-fbsd_amd64 ${LINKER_FLAGS} ./cmd/jailer
 
 .PHONY: fbsd-arm
 fbsd-arm: ${BINARY_DIR}
-	GOOS=freebsd GOARCH=arm go build -o ${BINARY_DIR}/${BINARY_NAME}-fbsd_arm ${LINKER_FLAGS}
+	GOOS=freebsd GOARCH=arm go build -o ${BINARY_DIR}/${BINARY_NAME}-fbsd_arm ${LINKER_FLAGS} ./cmd/jailer
 
 .PHONY: fbsd-arm64
 fbsd-arm64: ${BINARY_DIR}
-	GOOS=freebsd GOARCH=arm64 go build -o ${BINARY_DIR}/${BINARY_NAME}-fbsd_arm64 ${LINKER_FLAGS}
+	GOOS=freebsd GOARCH=arm64 go build -o ${BINARY_DIR}/${BINARY_NAME}-fbsd_arm64 ${LINKER_FLAGS} ./cmd/jailer
 
 .PHONY: test
 test:

@@ -5,7 +5,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/NeoBSD/jailer/cmd"
+	"github.com/NeoBSD/jailer/cmd/jailer/cmd"
 	"github.com/NeoBSD/jailer/runtime"
 )
 
