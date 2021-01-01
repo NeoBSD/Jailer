@@ -1,18 +1,38 @@
 package jailer_test
 
-// func TestParseJLSOutputEmpty(t *testing.T) {
+import (
+	"testing"
 
-// 	actual, err := jailer.ParseJLSOutput("")
+	"github.com/NeoBSD/jailer"
+)
 
-// 	if err != nil {
-// 		t.Error(err)
-// 	}
+func TestParseJLSOutputMockEmpty(t *testing.T) {
+	jls := jailer.JLS{Path: "testdata/jls_empty"}
+	jails, err := jls.GetActiveJails()
 
-// 	if len(actual) != 0 {
-// 		t.Errorf("Expected: %v, Got: %v", map[string]string{}, actual)
-// 	}
+	if err != nil {
+		t.Error(err)
+	}
 
-// }
+	if len(jails) != 0 {
+		t.Errorf("Expected: %d, Got: %d", 0, len(jails))
+	}
+
+}
+
+func TestParseJLSOutputMock(t *testing.T) {
+	jls := jailer.JLS{Path: "testdata/jls"}
+	jails, err := jls.GetActiveJails()
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	if len(jails) != 2 {
+		t.Errorf("Expected: %d, Got: %d", 2, len(jails))
+	}
+
+}
 
 // func TestParseJLSOutputJID(t *testing.T) {
 
