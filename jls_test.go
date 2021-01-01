@@ -6,6 +6,20 @@ import (
 	"github.com/NeoBSD/jailer"
 )
 
+func TestJLSCommandNotFound(t *testing.T) {
+	jls := jailer.JLS{Path: "testdata/jls_notfound"}
+	jails, err := jls.GetActiveJails()
+
+	if err == nil {
+		t.Errorf("Expected: error binary not found")
+	}
+
+	if jails != nil {
+		t.Errorf("Expected: nil, got %v", jails)
+
+	}
+}
+
 func TestParseJLSOutputMockEmpty(t *testing.T) {
 	jls := jailer.JLS{Path: "testdata/jls_empty"}
 	jails, err := jls.GetActiveJails()
@@ -30,6 +44,14 @@ func TestParseJLSOutputMock(t *testing.T) {
 
 	if len(jails) != 2 {
 		t.Errorf("Expected: %d, Got: %d", 2, len(jails))
+	}
+
+	first := jails[0]
+	if first.Name != "test_01" {
+		t.Errorf("Expected: %s, Got: %s", "test_01", first.Name)
+	}
+	if first.Path != "/jails/test_01" {
+		t.Errorf("Expected: %s, Got: %s", "/jails/test_01", first.Path)
 	}
 
 }
