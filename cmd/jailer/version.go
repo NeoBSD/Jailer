@@ -22,8 +22,8 @@ var versionCmd = &cobra.Command{
 func RunVersionCommand(cmd *cobra.Command, args []string) error {
 
 	if viper.Get("verbose") == true {
-		const padding = 3
-		w := tabwriter.NewWriter(os.Stdout, 0, 0, padding, ' ', 0)
+
+		w := tabwriter.NewWriter(os.Stdout, 0, 0, tabWriterPadding, ' ', 0)
 		fmt.Fprintf(w, "Version\t%s\t\n", jailer.Version)
 		fmt.Fprintf(w, "Date\t%s\t\n", jailer.BuildDate)
 		fmt.Fprintf(w, "Commit\t%s\t\n", jailer.BuildCommit)

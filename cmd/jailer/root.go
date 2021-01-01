@@ -8,6 +8,10 @@ import (
 	"github.com/spf13/viper"
 )
 
+const (
+	tabWriterPadding = 3
+)
+
 var cfgFile string
 
 var rootCmd = &cobra.Command{

@@ -25,8 +25,7 @@ func RunInfoCommand(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	const padding = 3
-	w := tabwriter.NewWriter(os.Stdout, 0, 0, padding, ' ', 0)
+	w := tabwriter.NewWriter(os.Stdout, 0, 0, tabWriterPadding, ' ', 0)
 
 	v := host.Version
 	fmt.Fprintf(w, "Hostname\t%s\t\n", host.Hostname)

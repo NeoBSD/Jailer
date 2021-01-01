@@ -24,8 +24,7 @@ func RunPsCommand(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	const padding = 3
-	w := tabwriter.NewWriter(os.Stdout, 0, 0, padding, ' ', 0)
+	w := tabwriter.NewWriter(os.Stdout, 0, 0, tabWriterPadding, ' ', 0)
 	fmt.Fprintln(w, "JID\tName\tHostname\tPath\t")
 	for _, jail := range jails {
 		fmt.Fprintf(w, "%d\t%s\t%s\t%s\t\n", jail.JID, jail.Name, jail.Hostname, jail.Path)
