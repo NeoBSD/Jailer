@@ -6,7 +6,6 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	"github.com/NeoBSD/jailer"
-	"github.com/NeoBSD/jailer/cmd/jailer/cmd"
 )
 
 // These variables get set during link time. See Makefile
@@ -41,5 +40,5 @@ func init() {
 }
 
 func main() {
-	cmd.Execute()
+	Execute()
 }

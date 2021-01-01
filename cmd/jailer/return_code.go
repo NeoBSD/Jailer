@@ -1,4 +1,4 @@
-package cmd
+package main
 
 const (
 	// ExitSuccess return success

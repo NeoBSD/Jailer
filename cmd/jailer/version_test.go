@@ -1,13 +1,11 @@
-package cmd_test
+package main
 
 import (
 	"testing"
-
-	"github.com/NeoBSD/jailer/cmd/jailer/cmd"
 )
 
 func TestRunVersionCommand(t *testing.T) {
-	err := cmd.RunVersionCommand(nil, []string{})
+	err := RunVersionCommand(nil, []string{})
 	if err != nil {
 		t.Errorf("Error in version subcommand: %v", err)
 	}
