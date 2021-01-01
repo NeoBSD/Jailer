@@ -1,61 +1,55 @@
 package jailer_test
 
-import (
-	"testing"
+// func TestParseJLSOutputEmpty(t *testing.T) {
 
-	"github.com/NeoBSD/jailer"
-)
+// 	actual, err := jailer.ParseJLSOutput("")
 
-func TestParseJLSOutputEmpty(t *testing.T) {
+// 	if err != nil {
+// 		t.Error(err)
+// 	}
 
-	actual, err := jailer.ParseJLSOutput("")
+// 	if len(actual) != 0 {
+// 		t.Errorf("Expected: %v, Got: %v", map[string]string{}, actual)
+// 	}
 
-	if err != nil {
-		t.Error(err)
-	}
+// }
 
-	if len(actual) != 0 {
-		t.Errorf("Expected: %v, Got: %v", map[string]string{}, actual)
-	}
+// func TestParseJLSOutputJID(t *testing.T) {
 
-}
+// 	expected := map[string]string{"jid": "2"}
 
-func TestParseJLSOutputJID(t *testing.T) {
+// 	actual, err := jailer.ParseJLSOutput("jid=2")
+// 	if err != nil {
+// 		t.Error(err)
+// 	}
 
-	expected := map[string]string{"jid": "2"}
+// 	if actual["jid"] != expected["jid"] {
+// 		t.Errorf("Expected: %v, Got: %v", expected, actual)
+// 	}
 
-	actual, err := jailer.ParseJLSOutput("jid=2")
-	if err != nil {
-		t.Error(err)
-	}
+// }
 
-	if actual["jid"] != expected["jid"] {
-		t.Errorf("Expected: %v, Got: %v", expected, actual)
-	}
+// func TestParseJLSOutputMultiplePairs(t *testing.T) {
 
-}
+// 	expected := map[string]string{"jid": "2", "name": "test_jail", "path": "/jailer/test_jail"}
 
-func TestParseJLSOutputMultiplePairs(t *testing.T) {
+// 	actual, err := jailer.ParseJLSOutput("jid=2 name=test_jail path=/jailer/test_jail")
+// 	if err != nil {
+// 		t.Error(err)
+// 	}
 
-	expected := map[string]string{"jid": "2", "name": "test_jail", "path": "/jailer/test_jail"}
+// 	if actual["jid"] != expected["jid"] {
+// 		t.Errorf("Expected: %v, Got: %v", expected, actual)
+// 	}
 
-	actual, err := jailer.ParseJLSOutput("jid=2 name=test_jail path=/jailer/test_jail")
-	if err != nil {
-		t.Error(err)
-	}
+// 	if actual["name"] != expected["name"] {
+// 		t.Errorf("Expected: %v, Got: %v", expected, actual)
+// 	}
 
-	if actual["jid"] != expected["jid"] {
-		t.Errorf("Expected: %v, Got: %v", expected, actual)
-	}
-
-	if actual["name"] != expected["name"] {
-		t.Errorf("Expected: %v, Got: %v", expected, actual)
-	}
-
-	if actual["path"] != expected["path"] {
-		t.Errorf("Expected: %v, Got: %v", expected, actual)
-	}
-}
+// 	if actual["path"] != expected["path"] {
+// 		t.Errorf("Expected: %v, Got: %v", expected, actual)
+// 	}
+// }
 
 // func TestParseJLSOutput(t *testing.T) {
 
