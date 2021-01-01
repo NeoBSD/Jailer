@@ -18,10 +18,16 @@ var infoCmd = &cobra.Command{
 
 // RunInfoCommand infoutes the "info" subcommand.
 func RunInfoCommand(cmd *cobra.Command, args []string) error {
-	fbsd, err := freebsd.GetSystemInfo()
+	host, err := freebsd.GetSystemInfo()
 	if err != nil {
 		return err
 	}
+
+	// Host
+	v := host.Version
+	fmt.Println("Host:")
+	fmt.Printf("\tHostname: %s\n", host.Hostname)
+	fmt.Printf("\tOS: %d.%d-%s-p%d\n", v.Major, v.Minor, v.Comment, v.Patch)
 
 	// Jailer
 	fmt.Println("Jailer:")
@@ -31,15 +37,11 @@ func RunInfoCommand(cmd *cobra.Command, args []string) error {
 
 	// Hardware
 	fmt.Println("Hardware:")
-	fmt.Printf("\tMachine: %s\n", fbsd.Machine)
-	fmt.Printf("\tMachineArch: %s\n", fbsd.MachineArch)
-	fmt.Printf("\tModel: %s\n", fbsd.Hardware.Model)
-	fmt.Printf("\tNumCPU: %d\n", fbsd.Hardware.NumCPU)
+	fmt.Printf("\tMachine: %s\n", host.Machine)
+	fmt.Printf("\tMachineArch: %s\n", host.MachineArch)
+	fmt.Printf("\tModel: %s\n", host.Hardware.Model)
+	fmt.Printf("\tNumCPU: %d\n", host.Hardware.NumCPU)
 
-	// Operating System
-	v := fbsd.Version
-	fmt.Println("Operating System:")
-	fmt.Printf("\tVersion: %d.%d-%s-p%d\n", v.Major, v.Minor, v.Comment, v.Patch)
 	return nil
 }
 

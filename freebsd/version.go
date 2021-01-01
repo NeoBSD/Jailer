@@ -22,7 +22,7 @@ func GetVersionInfo() (Version, error) {
 	cmd.Stdout = &buffer
 	cmd.Stderr = &buffer
 
-	// Output will be something like: 12.2-RELEASE
+	// Output will be something like: 12.2-RELEASE-p1
 	if err := cmd.Run(); err != nil {
 		return Version{}, err
 	}
@@ -39,12 +39,21 @@ func GetVersionInfo() (Version, error) {
 	version.Major = major
 
 	minorSplits := strings.Split(majorSplit[1], "-")
-	minorString := minorSplits[0]
-	minor, err := strconv.Atoi(minorString)
+	minor, err := strconv.Atoi(minorSplits[0])
 	if err != nil {
 		return Version{}, err
 	}
 	version.Minor = minor
+
+	if len(minorSplits) > 2 {
+		str := minorSplits[2][1:]
+		str = strings.Trim(str, " \n\r\t")
+		patch, err := strconv.Atoi(str)
+		if err != nil {
+			return Version{}, err
+		}
+		version.Patch = patch
+	}
 
 	version.Comment = strings.Trim(minorSplits[1], " \t\n\r")
 
