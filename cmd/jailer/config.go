@@ -20,7 +20,7 @@ var configCmd = &cobra.Command{
 // RunConfigCommand ...
 func RunConfigCommand(cmd *cobra.Command, args []string) error {
 	// JSON mode
-	if val, ok := viper.Get("json").(bool); ok && val {
+	if viper.GetBool("json") {
 		type item struct {
 			Key   string      `json:"key"`
 			Value interface{} `json:"value"`

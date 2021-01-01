@@ -1,12 +1,14 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"text/tabwriter"
 
 	"github.com/NeoBSD/jailer"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // psCmd represents the `ps` sub command
@@ -22,6 +24,15 @@ func RunPsCommand(cmd *cobra.Command, args []string) error {
 	jails, err := jls.GetActiveJails()
 	if err != nil {
 		return err
+	}
+
+	if viper.GetBool("json") {
+		js, err := json.Marshal(jails)
+		if err != nil {
+			return err
+		}
+		fmt.Fprintln(os.Stdout, string(js))
+		return nil
 	}
 
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, tabWriterPadding, ' ', 0)

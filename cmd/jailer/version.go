@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"text/tabwriter"
@@ -20,7 +21,28 @@ var versionCmd = &cobra.Command{
 
 // RunVersionCommand prints the current jailer version
 func RunVersionCommand(cmd *cobra.Command, args []string) error {
+	// json
+	if viper.GetBool("json") {
+		version := struct {
+			Version     string `json:"version"`
+			BuildCommit string `json:"commit"`
+			BuildDate   string `json:"date"`
+			BuildOS     string `json:"build_os"`
+		}{
+			Version:     jailer.Version,
+			BuildCommit: jailer.BuildCommit,
+			BuildDate:   jailer.BuildDate,
+			BuildOS:     jailer.BuildOS,
+		}
+		js, err := json.Marshal(version)
+		if err != nil {
+			return err
+		}
+		fmt.Fprintln(os.Stdout, string(js))
+		return nil
+	}
 
+	// normal
 	if viper.Get("verbose") == true {
 
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, tabWriterPadding, ' ', 0)

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"text/tabwriter"
@@ -9,6 +10,7 @@ import (
 	"github.com/NeoBSD/jailer/freebsd"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // infoCmd represents the "info" sub command
@@ -23,6 +25,15 @@ func RunInfoCommand(cmd *cobra.Command, args []string) error {
 	host, err := freebsd.GetSystemInfo()
 	if err != nil {
 		return err
+	}
+
+	if viper.GetBool("json") {
+		js, err := json.Marshal(host)
+		if err != nil {
+			return err
+		}
+		fmt.Fprintln(os.Stdout, string(js))
+		return nil
 	}
 
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, tabWriterPadding, ' ', 0)
