@@ -58,7 +58,7 @@ Available Commands:
   version     Print current version
 
 Flags:
-  -c, --config string   Config file (default is $PWD/config.yaml)
+  -c, --config string   Config file (default is $PWD/jailer.yaml)
   -h, --help            help for jailer
   -v, --verbose         Verbose output
 
@@ -80,7 +80,7 @@ Use "jailer [command] --help" for more information about a command.
 ### Setup
 
 ```sh
-cp config.example.yml config.yml
+cp jailer.example.yml jailer.yml
 zfs create -o mountpoint=/jailer $ZROOT/jailer
 ```
 

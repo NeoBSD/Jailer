@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/sirupsen/logrus"
@@ -26,7 +27,7 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	// Flags
-	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "Config file (default is $PWD/config.yaml)")
+	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "Config file (default is $PWD/jailer.yaml)")
 	rootCmd.PersistentFlags().BoolP("verbose", "v", false, "Verbose output")
 	viper.BindPFlag("verbose", rootCmd.PersistentFlags().Lookup("verbose"))
 
@@ -45,21 +46,21 @@ func initConfig() {
 			os.Exit(1)
 		}
 
-		// Search config in home directory with name "config" (without extension).
+		// Search config in home directory with name "jailer" (without extension).
 		viper.AddConfigPath(dir)
-		viper.SetConfigName("config")
+		viper.SetConfigName("jailer")
 		viper.AutomaticEnv() // read in environment variables that match
 
 	}
 
 	// Set log level
-	// TODO: set via config.yml
+	// TODO: set via jailer.yml
 	if viper.Get("verbose") == true {
 		logrus.SetLevel(logrus.InfoLevel)
 	}
 
 	if err := viper.ReadInConfig(); err != nil {
-		logrus.Errorf("Can't read config: %v\n", err)
+		fmt.Println(err)
 		os.Exit(1)
 	}
 }

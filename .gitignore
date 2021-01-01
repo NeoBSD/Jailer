@@ -6,8 +6,8 @@
 
 # Project
 !.vscode/settings.json
-bin/jailer*
-config.yml
+bin
+jailer.yml
 sandbox
 test-jail.conf
 test.conf
