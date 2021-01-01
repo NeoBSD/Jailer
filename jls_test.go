@@ -1,14 +1,14 @@
-package jail_test
+package jailer_test
 
 import (
 	"testing"
 
-	"github.com/NeoBSD/jailer/jail"
+	"github.com/NeoBSD/jailer"
 )
 
 func TestParseJLSOutputEmpty(t *testing.T) {
 
-	actual, err := jail.ParseJLSOutput("")
+	actual, err := jailer.ParseJLSOutput("")
 
 	if err != nil {
 		t.Error(err)
@@ -24,7 +24,7 @@ func TestParseJLSOutputJID(t *testing.T) {
 
 	expected := map[string]string{"jid": "2"}
 
-	actual, err := jail.ParseJLSOutput("jid=2")
+	actual, err := jailer.ParseJLSOutput("jid=2")
 	if err != nil {
 		t.Error(err)
 	}
@@ -39,7 +39,7 @@ func TestParseJLSOutputMultiplePairs(t *testing.T) {
 
 	expected := map[string]string{"jid": "2", "name": "test_jail", "path": "/jailer/test_jail"}
 
-	actual, err := jail.ParseJLSOutput("jid=2 name=test_jail path=/jailer/test_jail")
+	actual, err := jailer.ParseJLSOutput("jid=2 name=test_jail path=/jailer/test_jail")
 	if err != nil {
 		t.Error(err)
 	}
@@ -77,7 +77,7 @@ func TestParseJLSOutputMultiplePairs(t *testing.T) {
 
 // 		t.Run(tt.input, func(t *testing.T) {
 
-// 			actual, err := jail.ParseJLSOutput(tt.input)
+// 			actual, err := jailer.ParseJLSOutput(tt.input)
 
 // 			if err != nil {
 // 				t.Error(err)

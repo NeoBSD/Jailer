@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/NeoBSD/jailer/jail"
+	"github.com/NeoBSD/jailer"
 	"github.com/spf13/cobra"
 )
 
@@ -41,8 +41,8 @@ func RunPsCommand(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
-func parseJLS(str string) ([]jail.Jail, error) {
-	jails := []jail.Jail{}
+func parseJLS(str string) ([]jailer.Jail, error) {
+	jails := []jailer.Jail{}
 	lines := strings.Split(str, "\n")
 	for _, line := range lines {
 		// Split at spaces
@@ -53,7 +53,7 @@ func parseJLS(str string) ([]jail.Jail, error) {
 			continue
 		}
 
-		j := jail.Jail{}
+		j := jailer.Jail{}
 
 		// Mapping
 		intValues := []struct {

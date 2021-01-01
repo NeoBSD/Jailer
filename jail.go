@@ -1,4 +1,4 @@
-package jail
+package jailer
 
 // Jail represents a single jail config
 type Jail struct {

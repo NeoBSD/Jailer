@@ -1,4 +1,4 @@
-package jail
+package util
 
 import (
 	"fmt"

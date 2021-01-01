@@ -5,7 +5,6 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/NeoBSD/jailer/jail"
 	"github.com/spf13/cobra"
 )
 
@@ -29,15 +28,15 @@ func RunFetchCommand(cmd *cobra.Command, args []string) {
 
 	fmt.Print(string(stdout))
 
-	ftpURL := "https://download.freebsd.org/ftp/releases/amd64/12.0-RELEASE/"
+	// ftpURL := "https://download.freebsd.org/ftp/releases/amd64/12.0-RELEASE/"
 
-	baseName := "base.txz"
-	baseURL := fmt.Sprintf("%s%s", ftpURL, baseName)
+	// baseName := "base.txz"
+	// baseURL := fmt.Sprintf("%s%s", ftpURL, baseName)
 
-	if err := jail.DownloadFile(baseName, baseURL); err != nil {
-		fmt.Fprintf(os.Stderr, "While downloading: %v", err)
-		os.Exit(ExitFailure)
-	}
+	// if err := jailer.DownloadFile(baseName, baseURL); err != nil {
+	// 	fmt.Fprintf(os.Stderr, "While downloading: %v", err)
+	// 	os.Exit(ExitFailure)
+	// }
 }
 
 func init() {
