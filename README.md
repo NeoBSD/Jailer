@@ -48,6 +48,7 @@ Available Commands:
   init        Init for jailer. Creates zfs datasets
   playground  Subcommand for development only
   ps          List active jails
+  restart     Restart one or more jails
   rm          Remove one or more jails
   run         Run a command in a new jail
   start       Start one or more stopped jails
@@ -60,6 +61,8 @@ Flags:
   -c, --config string   Config file (default is $PWD/config.yaml)
   -h, --help            help for jailer
   -v, --verbose         Verbose output
+
+Use "jailer [command] --help" for more information about a command.
 ```
 
 ## Development
