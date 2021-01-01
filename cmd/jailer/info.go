@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"text/tabwriter"
 
 	"github.com/NeoBSD/jailer"
 	"github.com/NeoBSD/jailer/freebsd"
@@ -23,25 +25,23 @@ func RunInfoCommand(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	// Host
+	const padding = 3
+	w := tabwriter.NewWriter(os.Stdout, 0, 0, padding, ' ', 0)
+
 	v := host.Version
-	fmt.Println("Host:")
-	fmt.Printf("\tHostname: %s\n", host.Hostname)
-	fmt.Printf("\tOS: %d.%d-%s-p%d\n", v.Major, v.Minor, v.Comment, v.Patch)
+	fmt.Fprintf(w, "Hostname\t%s\t\n", host.Hostname)
+	fmt.Fprintf(w, "OS\t%d.%d-%s-p%d\t\n", v.Major, v.Minor, v.Comment, v.Patch)
 
-	// Jailer
-	fmt.Println("Jailer:")
-	fmt.Printf("\tVersion: %s\n", jailer.Version)
-	fmt.Printf("\tDate: %s\n", jailer.BuildDate)
-	fmt.Printf("\tCommit: %s\n", jailer.BuildCommit)
+	fmt.Fprintf(w, "Version\t%s\t\n", jailer.Version)
+	fmt.Fprintf(w, "Date\t%s\t\n", jailer.BuildDate)
+	fmt.Fprintf(w, "Commit\t%s\t\n", jailer.BuildCommit)
 
-	// Hardware
-	fmt.Println("Hardware:")
-	fmt.Printf("\tMachine: %s\n", host.Machine)
-	fmt.Printf("\tMachineArch: %s\n", host.MachineArch)
-	fmt.Printf("\tModel: %s\n", host.Hardware.Model)
-	fmt.Printf("\tNumCPU: %d\n", host.Hardware.NumCPU)
+	fmt.Fprintf(w, "Machine\t%s\t\n", host.Machine)
+	fmt.Fprintf(w, "MachineArch\t%s\t\n", host.MachineArch)
+	fmt.Fprintf(w, "Model\t%s\t\n", host.Hardware.Model)
+	fmt.Fprintf(w, "NumCPU\t%d\t\n", host.Hardware.NumCPU)
 
+	w.Flush()
 	return nil
 }
 
