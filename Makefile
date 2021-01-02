@@ -3,7 +3,8 @@ all: test build
 
 # BINARY
 BINARY_DIR=bin
-BINARY_NAME=jailer
+JAILER=jailer
+JAILER_COMPOSE=jailer-compose
 
 # FLAGS
 HEAD = ${shell git rev-parse HEAD}
@@ -22,34 +23,18 @@ ${BINARY_DIR}:
 
 .PHONY: build
 build: ${BINARY_DIR}
-	go build -o ${BINARY_DIR}/${BINARY_NAME} ${LINKER_FLAGS} ./cmd/jailer
-
-.PHONY: cross
-cross: linux-amd64 linux-arm linux-arm64 fbsd-amd64 fbsd-arm fbsd-arm64
-
-.PHONY: linux-amd64
-linux-amd64: ${BINARY_DIR}
-	GOOS=linux GOARCH=amd64 go build -o ${BINARY_DIR}/${BINARY_NAME}-linux_amd64 ${LINKER_FLAGS} ./cmd/jailer
-
-.PHONY: linux-arm
-linux-arm: ${BINARY_DIR}
-	GOOS=linux GOARCH=arm go build -o ${BINARY_DIR}/${BINARY_NAME}-linux_arm ${LINKER_FLAGS} ./cmd/jailer
-
-.PHONY: linux-arm64
-linux-arm64: ${BINARY_DIR}
-	GOOS=linux GOARCH=arm64 go build -o ${BINARY_DIR}/${BINARY_NAME}-linux_arm64 ${LINKER_FLAGS} ./cmd/jailer
-
-.PHONY: fbsd-amd64
-fbsd-amd64: ${BINARY_DIR}
-	GOOS=freebsd GOARCH=amd64 go build -o ${BINARY_DIR}/${BINARY_NAME}-fbsd_amd64 ${LINKER_FLAGS} ./cmd/jailer
-
-.PHONY: fbsd-arm
-fbsd-arm: ${BINARY_DIR}
-	GOOS=freebsd GOARCH=arm go build -o ${BINARY_DIR}/${BINARY_NAME}-fbsd_arm ${LINKER_FLAGS} ./cmd/jailer
+	go build -o ${BINARY_DIR}/${JAILER} ${LINKER_FLAGS} ./cmd/${JAILER}
+	go build -o ${BINARY_DIR}/${JAILER_COMPOSE} ${LINKER_FLAGS} ./cmd/${JAILER_COMPOSE}
 
 .PHONY: fbsd-arm64
 fbsd-arm64: ${BINARY_DIR}
-	GOOS=freebsd GOARCH=arm64 go build -o ${BINARY_DIR}/${BINARY_NAME}-fbsd_arm64 ${LINKER_FLAGS} ./cmd/jailer
+	GOOS=freebsd GOARCH=arm64 go build -o ${BINARY_DIR}/${JAILER}-fbsd_arm64 ${LINKER_FLAGS} ./cmd/${JAILER}
+	GOOS=freebsd GOARCH=arm64 go build -o ${BINARY_DIR}/${JAILER_COMPOSE}-fbsd_arm64 ${LINKER_FLAGS} ./cmd/${JAILER_COMPOSE}
+
+.PHONY: fbsd-amd64
+fbsd-amd64: ${BINARY_DIR}
+	GOOS=freebsd GOARCH=amd64 go build -o ${BINARY_DIR}/${JAILER}-fbsd_amd64 ${LINKER_FLAGS} ./cmd/${JAILER}
+	GOOS=freebsd GOARCH=amd64 go build -o ${BINARY_DIR}/${JAILER_COMPOSE}-fbsd_amd64 ${LINKER_FLAGS} ./cmd/${JAILER_COMPOSE}
 
 .PHONY: test
 test:
