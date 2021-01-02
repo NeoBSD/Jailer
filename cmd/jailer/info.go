@@ -42,6 +42,7 @@ func RunInfoCommand(cmd *cobra.Command, args []string) error {
 	fmt.Fprintf(w, "Hostname\t%s\t\n", host.Hostname)
 	fmt.Fprintf(w, "OS\t%d.%d-%s-p%d\t\n", v.Major, v.Minor, v.Comment, v.Patch)
 
+	fmt.Fprintf(w, "Path\t%v\t\n", os.Getenv("JAILER_PATH"))
 	fmt.Fprintf(w, "Version\t%s\t\n", jailer.Version)
 	fmt.Fprintf(w, "Date\t%s\t\n", jailer.BuildDate)
 	fmt.Fprintf(w, "Commit\t%s\t\n", jailer.BuildCommit)
