@@ -17,5 +17,8 @@ WORKDIR /work
 # RUN: Copies a file or directory to the jail filesystem.
 COPY test.sh .
 
-# CMD: Default command to run when your jail starts.
-CMD sh /work/test.sh
+# WORKDIR: Sets the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD.
+WORKDIR /work2
+
+# RUN: Copies a file or directory to the jail filesystem.
+COPY test2.sh .

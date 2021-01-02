@@ -28,9 +28,9 @@ func RunBuildCommand(cmd *cobra.Command, args []string) error {
 	}
 
 	dir, _ := filepath.Split(path)
-	dir = strings.Trim(dir, "/")
-	jf.Image = dir
+	jf.Image = strings.Trim(dir, "/")
 	for _, instruction := range jf.Instructions {
+		// fmt.Println(instruction)
 		instruction.Execute(jf)
 	}
 

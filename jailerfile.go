@@ -64,6 +64,8 @@ func ReadFromFile(path string) (*Jailerfile, error) {
 			if len(base) == 2 {
 				result.BaseImage.Version = CleanString(base[1])
 			}
+			from := &FromInstruction{From: fmt.Sprintf("%s:%s", name, result.BaseImage.Version)}
+			result.Instructions = append(result.Instructions, from)
 		case Run:
 			run := &RunInstruction{}
 			err = parseInstructionLine(result, run, str)

@@ -65,19 +65,27 @@ func TestRunParsing(t *testing.T) {
 	is := is.New(t)
 	jf, err := jailer.ReadFromFile("testdata/jailer/run/Jailerfile")
 	is.NoErr(err)
-	is.Equal(len(jf.Instructions), 2)
+	is.Equal(len(jf.Instructions), 3)
 
-	t.Run("first", func(t *testing.T) {
+	t.Run("0", func(t *testing.T) {
 		is := is.New(t)
-		val, ok := jf.Instructions[0].(*jailer.RunInstruction)
+		val, ok := jf.Instructions[0].(*jailer.FromInstruction)
+		is.True(ok)
+		is.Equal(val.Name(), "FROM")
+		is.Equal(val.From, "freebsd:latest")
+	})
+
+	t.Run("1", func(t *testing.T) {
+		is := is.New(t)
+		val, ok := jf.Instructions[1].(*jailer.RunInstruction)
 		is.True(ok)
 		is.Equal(val.Name(), "RUN")
 		is.Equal(val.Command, "echo \"Hello Jailer!\"")
 	})
 
-	t.Run("second", func(t *testing.T) {
+	t.Run("2", func(t *testing.T) {
 		is := is.New(t)
-		val, ok := jf.Instructions[1].(*jailer.RunInstruction)
+		val, ok := jf.Instructions[2].(*jailer.RunInstruction)
 		is.True(ok)
 		is.Equal(val.Name(), "RUN")
 		is.Equal(val.Command, "pkg install -y nano")
@@ -89,8 +97,8 @@ func TestWorkDirParsing(t *testing.T) {
 	is := is.New(t)
 	jf, err := jailer.ReadFromFile("testdata/jailer/workdir/Jailerfile")
 	is.NoErr(err)
-	is.Equal(len(jf.Instructions), 1)
-	val, ok := jf.Instructions[0].(*jailer.WorkDirInstruction)
+	is.Equal(len(jf.Instructions), 2)
+	val, ok := jf.Instructions[1].(*jailer.WorkDirInstruction)
 	is.True(ok)
 	is.Equal(val.Name(), "WORKDIR")
 	is.Equal(val.Command, "/work")

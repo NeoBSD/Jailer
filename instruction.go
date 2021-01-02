@@ -20,7 +20,7 @@ type FromInstruction struct {
 
 // String returns the instruction command
 func (f FromInstruction) String() string {
-	return fmt.Sprintf("#from: %s", f.From)
+	return f.Name()
 }
 
 // Name returns the instruction identifier
@@ -35,7 +35,7 @@ func (f FromInstruction) Parse(input string) error {
 
 // Execute runs the instruction on the current Jailerfile
 func (f FromInstruction) Execute(jf *Jailerfile) error {
-	fmt.Println("#from")
+	fmt.Printf("# from=%s\n", jf.BaseImage.Name)
 	return nil
 }
 
@@ -47,7 +47,7 @@ type RunInstruction struct {
 
 // String returns the instruction command
 func (r RunInstruction) String() string {
-	return fmt.Sprintf("%s", r.Command)
+	return r.Name()
 }
 
 // Name returns the instruction identifier
@@ -75,7 +75,7 @@ type WorkDirInstruction struct {
 
 // String returns the instruction command
 func (w WorkDirInstruction) String() string {
-	return fmt.Sprintf("cd %s", w.Command)
+	return w.Name()
 }
 
 // Name returns the instruction identifier
@@ -91,7 +91,7 @@ func (w *WorkDirInstruction) Parse(input string) error {
 
 // Execute runs the instruction on the current Jailerfile
 func (w WorkDirInstruction) Execute(jf *Jailerfile) error {
-	fmt.Printf("#workdir: %s\n", w.Command)
+	fmt.Printf("# workdir=%s\n", w.Command)
 	return nil
 }
 
@@ -103,7 +103,7 @@ type CopyInstruction struct {
 
 // String returns the instruction command
 func (c CopyInstruction) String() string {
-	return fmt.Sprintf("cp %s", c.Command)
+	return c.Name()
 }
 
 // Name returns the instruction identifier
@@ -134,7 +134,7 @@ type CmdInstruction struct {
 
 // String returns the instruction command
 func (c CmdInstruction) String() string {
-	return fmt.Sprintf("cmd %s", c.Command)
+	return c.Name()
 }
 
 // Name returns the instruction identifier
@@ -150,6 +150,6 @@ func (c *CmdInstruction) Parse(input string) error {
 
 // Execute runs the instruction on the current Jailerfile
 func (c CmdInstruction) Execute(jf *Jailerfile) error {
-	fmt.Printf("cmd %s\n", c.Command)
+	fmt.Printf("# cmd=%s\n", c.Command)
 	return nil
 }
