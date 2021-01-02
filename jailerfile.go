@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"os"
 	"strings"
-
-	"github.com/NeoBSD/jailer/util"
 )
 
 // BaseImage ...
@@ -17,9 +15,9 @@ type BaseImage struct {
 
 // Jailerfile ...
 type Jailerfile struct {
-	Labels       map[string]string          `json:"labels"`
-	BaseImage    BaseImage                  `json:"base_image"`
-	Instructions []interface{ Instruction } `json:"instructions"`
+	Labels       map[string]string `json:"labels"`
+	BaseImage    BaseImage         `json:"base_image"`
+	Instructions []Instruction     `json:"instructions"`
 }
 
 func (j Jailerfile) String() string {
@@ -53,17 +51,17 @@ func NewFromFile(path string) (*Jailerfile, error) {
 		switch elements[0] {
 		case Label:
 			label := strings.Split(str, "=")
-			key := util.CleanString(label[0])
-			value := util.CleanString(label[1])
+			key := CleanString(label[0])
+			value := CleanString(label[1])
 			result.Labels[key] = value
 		case From:
 			base := strings.Split(str, ":")
-			name := util.CleanString(base[0])
+			name := CleanString(base[0])
 			result.BaseImage.Name = name
 			result.BaseImage.Version = "latest"
 
 			if len(base) == 2 {
-				result.BaseImage.Version = util.CleanString(base[1])
+				result.BaseImage.Version = CleanString(base[1])
 			}
 		case Run:
 			run := &RunInstruction{}
