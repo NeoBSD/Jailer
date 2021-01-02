@@ -13,8 +13,8 @@ func TestNewFromFile(t *testing.T) {
 		expected    *jailer.Jailerfile
 		expectError bool
 	}{
-		{"testdata/noexist/Jailerfile", &jailer.Jailerfile{}, true},
-		{"testdata/label/Jailerfile", &jailer.Jailerfile{BaseImage: jailer.BaseImage{Name: "freebsd", Version: "latest"}}, false},
+		{"testdata/jailer/noexist/Jailerfile", &jailer.Jailerfile{}, true},
+		{"testdata/jailer/label/Jailerfile", &jailer.Jailerfile{BaseImage: jailer.BaseImage{Name: "freebsd", Version: "latest"}}, false},
 	}
 
 	for _, tt := range tests {
@@ -34,7 +34,7 @@ func TestNewFromFile(t *testing.T) {
 
 func TestLabelParsing(t *testing.T) {
 
-	jf, err := jailer.NewFromFile("testdata/label/Jailerfile")
+	jf, err := jailer.NewFromFile("testdata/jailer/label/Jailerfile")
 
 	if err != nil {
 		t.Errorf("Error %v", err)
@@ -52,7 +52,7 @@ func TestLabelParsing(t *testing.T) {
 
 func TestFromWithImplicitLatestParsing(t *testing.T) {
 
-	jf, err := jailer.NewFromFile("testdata/from/Jailerfile")
+	jf, err := jailer.NewFromFile("testdata/jailer/from/Jailerfile")
 
 	if err != nil {
 		t.Errorf("Error %v", err)
@@ -70,7 +70,7 @@ func TestFromWithImplicitLatestParsing(t *testing.T) {
 
 func TestFromWithExplicitLatestParsing(t *testing.T) {
 
-	jf, err := jailer.NewFromFile("testdata/from_with_latest/Jailerfile")
+	jf, err := jailer.NewFromFile("testdata/jailer/from_with_latest/Jailerfile")
 
 	if err != nil {
 		t.Errorf("Error %v", err)
@@ -88,7 +88,7 @@ func TestFromWithExplicitLatestParsing(t *testing.T) {
 
 func TestFromWithExplicitVersionParsing(t *testing.T) {
 
-	jf, err := jailer.NewFromFile("testdata/from_with_version/Jailerfile")
+	jf, err := jailer.NewFromFile("testdata/jailer/from_with_version/Jailerfile")
 
 	if err != nil {
 		t.Errorf("Error %v", err)
@@ -106,7 +106,7 @@ func TestFromWithExplicitVersionParsing(t *testing.T) {
 
 func TestRunParsing(t *testing.T) {
 
-	jf, err := jailer.NewFromFile("testdata/run/Jailerfile")
+	jf, err := jailer.NewFromFile("testdata/jailer/run/Jailerfile")
 
 	if err != nil {
 		t.Errorf("Error %v", err)
@@ -144,7 +144,7 @@ func TestRunParsing(t *testing.T) {
 
 func TestWorkDirParsing(t *testing.T) {
 
-	jf, err := jailer.NewFromFile("testdata/workdir/Jailerfile")
+	jf, err := jailer.NewFromFile("testdata/jailer/workdir/Jailerfile")
 
 	if err != nil {
 		t.Errorf("Error %v", err)

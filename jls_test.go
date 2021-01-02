@@ -7,7 +7,7 @@ import (
 )
 
 func TestJLSCommandNotFound(t *testing.T) {
-	jls := jailer.JLS{Path: "testdata/jls_notfound"}
+	jls := jailer.JLS{Path: "testdata/mock_bin/jls_notfound"}
 	jails, err := jls.GetActiveJails()
 
 	if err == nil {
@@ -21,7 +21,7 @@ func TestJLSCommandNotFound(t *testing.T) {
 }
 
 func TestParseJLSOutputMockEmpty(t *testing.T) {
-	jls := jailer.JLS{Path: "testdata/jls_empty"}
+	jls := jailer.JLS{Path: "testdata/mock_bin/jls_empty"}
 	jails, err := jls.GetActiveJails()
 
 	if err != nil {
@@ -35,7 +35,7 @@ func TestParseJLSOutputMockEmpty(t *testing.T) {
 }
 
 func TestParseJLSOutputMock(t *testing.T) {
-	jls := jailer.JLS{Path: "testdata/jls"}
+	jls := jailer.JLS{Path: "testdata/mock_bin/jls"}
 	jails, err := jls.GetActiveJails()
 
 	if err != nil {
