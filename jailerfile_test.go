@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/NeoBSD/jailer"
+	"github.com/matryer/is"
 )
 
 func TestReadFromFile(t *testing.T) {
@@ -18,150 +19,77 @@ func TestReadFromFile(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		is := is.New(t)
 		actual, err := jailer.ReadFromFile(tt.input)
-
-		// error
-		if tt.expectError != (err != nil) {
-			t.Errorf("Error %s", err)
-		}
-
-		// from
-		if actual.BaseImage != tt.expected.BaseImage {
-			t.Errorf("Expected: %q, Got: %q", tt.expected.BaseImage, actual.BaseImage)
-		}
+		is.Equal(err != nil, tt.expectError)
+		is.Equal(actual.BaseImage, tt.expected.BaseImage)
 	}
 }
 
 func TestLabelParsing(t *testing.T) {
-
+	is := is.New(t)
 	jf, err := jailer.ReadFromFile("testdata/jailer/label/Jailerfile")
-
-	if err != nil {
-		t.Errorf("Error %v", err)
-	}
-
-	if jf.Labels["maintainer"] != `"example@example.com"` {
-		t.Errorf("Expected: \"%s\", got %s", "example@example.com", jf.Labels["maintainer"])
-	}
-
-	if jf.Labels["version"] != `"1.0"` {
-		t.Errorf("Expected: \"%s\", got %s", "1.0", jf.Labels["version"])
-	}
-
+	is.NoErr(err)
+	is.Equal(jf.Labels["maintainer"], `"example@example.com"`)
+	is.Equal(jf.Labels["version"], `"1.0"`)
 }
 
 func TestFromWithImplicitLatestParsing(t *testing.T) {
-
+	is := is.New(t)
 	jf, err := jailer.ReadFromFile("testdata/jailer/from/Jailerfile")
-
-	if err != nil {
-		t.Errorf("Error %v", err)
-	}
-
-	if jf.BaseImage.Name != "freebsd" {
-		t.Errorf("Expected: %s, got %s", "freebsd", jf.BaseImage.Name)
-	}
-
-	if jf.BaseImage.Version != "latest" {
-		t.Errorf("Expected: %s, got %s", "latest", jf.BaseImage.Version)
-	}
+	is.NoErr(err)
+	is.Equal(jf.BaseImage.Name, "freebsd")
+	is.Equal(jf.BaseImage.Version, "latest")
 
 }
 
 func TestFromWithExplicitLatestParsing(t *testing.T) {
-
+	is := is.New(t)
 	jf, err := jailer.ReadFromFile("testdata/jailer/from_with_latest/Jailerfile")
-
-	if err != nil {
-		t.Errorf("Error %v", err)
-	}
-
-	if jf.BaseImage.Name != "freebsd" {
-		t.Errorf("Expected: %s, got %s", "freebsd", jf.BaseImage.Name)
-	}
-
-	if jf.BaseImage.Version != "latest" {
-		t.Errorf("Expected: %s, got %s", "latest", jf.BaseImage.Version)
-	}
-
+	is.NoErr(err)
+	is.Equal(jf.BaseImage.Name, "freebsd")
+	is.Equal(jf.BaseImage.Version, "latest")
 }
 
 func TestFromWithExplicitVersionParsing(t *testing.T) {
-
+	is := is.New(t)
 	jf, err := jailer.ReadFromFile("testdata/jailer/from_with_version/Jailerfile")
-
-	if err != nil {
-		t.Errorf("Error %v", err)
-	}
-
-	if jf.BaseImage.Name != "freebsd" {
-		t.Errorf("Expected: %s, got %s", "freebsd", jf.BaseImage.Name)
-	}
-
-	if jf.BaseImage.Version != "12.1" {
-		t.Errorf("Expected: %s, got %s", "12.1", jf.BaseImage.Version)
-	}
-
+	is.NoErr(err)
+	is.Equal(jf.BaseImage.Name, "freebsd")
+	is.Equal(jf.BaseImage.Version, "12.1")
 }
 
 func TestRunParsing(t *testing.T) {
-
+	is := is.New(t)
 	jf, err := jailer.ReadFromFile("testdata/jailer/run/Jailerfile")
-
-	if err != nil {
-		t.Errorf("Error %v", err)
-	}
-
-	if len(jf.Instructions) != 2 {
-		t.Errorf("Expected: %d, got %d", 2, len(jf.Instructions))
-	}
+	is.NoErr(err)
+	is.Equal(len(jf.Instructions), 2)
 
 	t.Run("first", func(t *testing.T) {
-		if jf.Instructions[0].Name() != "RUN" {
-			t.Errorf("Expected: %s, got %s", "RUN", jf.Instructions[0].Name())
-		}
-
-		val := jf.Instructions[0].(*jailer.RunInstruction)
-		expected := "echo \"Hello Jailer!\""
-		if val.Command != expected {
-			t.Errorf("Expected: %s, got %s", expected, val.Command)
-		}
+		is := is.New(t)
+		val, ok := jf.Instructions[0].(*jailer.RunInstruction)
+		is.True(ok)
+		is.Equal(val.Name(), "RUN")
+		is.Equal(val.Command, "echo \"Hello Jailer!\"")
 	})
 
 	t.Run("second", func(t *testing.T) {
-		if jf.Instructions[1].Name() != "RUN" {
-			t.Errorf("Expected: %s, got %s", "RUN", jf.Instructions[1].Name())
-		}
-
-		val := jf.Instructions[1].(*jailer.RunInstruction)
-		expected := "pkg install -y nano"
-		if val.Command != expected {
-			t.Errorf("Expected: %s, got %s", expected, val.Command)
-		}
+		is := is.New(t)
+		val, ok := jf.Instructions[1].(*jailer.RunInstruction)
+		is.True(ok)
+		is.Equal(val.Name(), "RUN")
+		is.Equal(val.Command, "pkg install -y nano")
 	})
 
 }
 
 func TestWorkDirParsing(t *testing.T) {
-
+	is := is.New(t)
 	jf, err := jailer.ReadFromFile("testdata/jailer/workdir/Jailerfile")
-
-	if err != nil {
-		t.Errorf("Error %v", err)
-	}
-
-	if len(jf.Instructions) != 1 {
-		t.Errorf("Expected: %d, got %d", 2, len(jf.Instructions))
-	}
-
-	if jf.Instructions[0].Name() != "WORKDIR" {
-		t.Errorf("Expected: %s, got %s", "WORKDIR", jf.Instructions[0].Name())
-	}
-
-	val := jf.Instructions[0].(*jailer.WorkDirInstruction)
-	expected := "/work"
-	if val.Command != expected {
-		t.Errorf("Expected: %s, got %s", expected, val.Command)
-	}
-
+	is.NoErr(err)
+	is.Equal(len(jf.Instructions), 1)
+	val, ok := jf.Instructions[0].(*jailer.WorkDirInstruction)
+	is.True(ok)
+	is.Equal(val.Name(), "WORKDIR")
+	is.Equal(val.Command, "/work")
 }

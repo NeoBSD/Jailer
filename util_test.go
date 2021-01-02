@@ -4,10 +4,10 @@ import (
 	"testing"
 
 	"github.com/NeoBSD/jailer"
+	"github.com/matryer/is"
 )
 
 func TestCleanString(t *testing.T) {
-
 	var tests = []struct {
 		name     string
 		input    string
@@ -19,13 +19,9 @@ func TestCleanString(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		t.Run(tt.input, func(t *testing.T) {
-			actual := jailer.CleanString(tt.input)
-			if actual != tt.expected {
-				t.Errorf("Expected: %q, Got: %q", tt.expected, actual)
-			}
-
-		})
+		is := is.New(t)
+		actual := jailer.CleanString(tt.input)
+		is.Equal(actual, tt.expected)
 	}
 
 }

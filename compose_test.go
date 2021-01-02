@@ -4,39 +4,30 @@ import (
 	"testing"
 
 	"github.com/NeoBSD/jailer"
+	"github.com/matryer/is"
 )
 
 func TestReadComposeFileFail(t *testing.T) {
+	is := is.New(t)
 	_, err := jailer.ReadComposeFile("unknown")
-	if err == nil {
-		t.Errorf("expected error wrong filepath, got no error")
-	}
+	is.True(err != nil)
 }
 
 func TestReadComposeFile(t *testing.T) {
+	is := is.New(t)
 	path := "testdata/jailer-compose/jailer-compose.yml"
 	compose, err := jailer.ReadComposeFile(path)
-	if err != nil {
-		t.Errorf("Error in ReadComposeFile subcommand: %v", err)
-	}
-
-	if compose.Version != "0.1" {
-		t.Errorf("Expected: version %s, got %s", "0.1", compose.Version)
-	}
-
-	if len(compose.Services) != 2 {
-		t.Errorf("Expected: %d services, got %d", 2, len(compose.Services))
-	}
-
-	if compose.Services[0].Label != "web" {
-		t.Errorf("Expected: version %s, got %s", "web", compose.Services[0].Label)
-	}
-
+	is.NoErr(err)
+	is.Equal(compose.Version, "0.1")
+	is.Equal(len(compose.Services), 2)
+	is.Equal(compose.Services[0].Label, "web")
 }
 
 func TestComposeValidate(t *testing.T) {
-	// OK
-	{
+	is := is.New(t)
+
+	t.Run("OK", func(t *testing.T) {
+		is := is.New(t)
 		c := jailer.Compose{
 			Version: "0.1",
 			Services: []jailer.Service{
@@ -44,21 +35,18 @@ func TestComposeValidate(t *testing.T) {
 				{Label: "test2"},
 			},
 		}
-		if err := c.Validate(); err != nil {
-			t.Errorf("validation failed: %v", err)
-		}
-	}
+		is.NoErr(c.Validate())
+	})
 
-	// FAIL: Missing version
-	{
+	t.Run("FAIL: Missing version", func(t *testing.T) {
+		is := is.New(t)
 		c := jailer.Compose{}
-		if err := c.Validate(); err == nil {
-			t.Errorf("expected validation fail, because of missing version")
-		}
-	}
+		is.True(c.Validate() != nil)
 
-	// FAIL: Label used twice
-	{
+	})
+
+	t.Run("FAIL: Label used twice", func(t *testing.T) {
+		is := is.New(t)
 		c := jailer.Compose{
 			Version: "0.1",
 			Services: []jailer.Service{
@@ -66,8 +54,6 @@ func TestComposeValidate(t *testing.T) {
 				{Label: "test1"},
 			},
 		}
-		if err := c.Validate(); err == nil {
-			t.Errorf("expected validation fail, label used twice")
-		}
-	}
+		is.True(c.Validate() != nil)
+	})
 }

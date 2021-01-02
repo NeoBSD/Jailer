@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/NeoBSD/jailer"
+	"github.com/matryer/is"
 )
 
 func TestInstructionNameToKeywordMapping(t *testing.T) {
@@ -22,10 +23,8 @@ func TestInstructionNameToKeywordMapping(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			actual := tt.input.Name()
-			if actual != tt.expected {
-				t.Errorf("Expected: %q, Got: %q", tt.expected, actual)
-			}
+			is := is.New(t)
+			is.Equal(tt.input.Name(), tt.expected)
 		})
 
 	}
@@ -45,12 +44,10 @@ func TestCopyInstructionParsing(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			is := is.New(t)
 			copy := &jailer.CopyInstruction{}
-			copy.Parse(tt.input)
-			actual := copy.Command
-			if actual != tt.expected {
-				t.Errorf("Expected: %q, Got: %q", tt.expected, actual)
-			}
+			is.NoErr(copy.Parse(tt.input))
+			is.Equal(copy.Command, tt.expected)
 		})
 
 	}
