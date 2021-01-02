@@ -1,7 +1,5 @@
 # jailer-compose
 
-## TOC
-
 - [Example](#example)
 - [Spec Top-Level](#spec-top-level)
   - [services](#services)
