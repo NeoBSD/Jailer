@@ -1,6 +1,11 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
+	"os"
+
+	"github.com/NeoBSD/jailer"
 	"github.com/spf13/cobra"
 )
 
@@ -8,32 +13,28 @@ import (
 var buildCmd = &cobra.Command{
 	Use:   "build",
 	Short: "Build an image from a Jailerfile",
-	Args:  cobra.MinimumNArgs(1),
-	Run:   RunBuildCommand,
+	Args:  cobra.ExactArgs(1),
+	RunE:  RunBuildCommand,
 }
 
 // RunBuildCommand executes the build subcommand.
-func RunBuildCommand(cmd *cobra.Command, args []string) {
-	// jailerPath := viper.Get("jailer-path")
-	// name := "test-jail"
-	// ip := "10.23.0.55"
+func RunBuildCommand(cmd *cobra.Command, args []string) error {
+	path := fmt.Sprintf("%s/Jailerfile", args[0])
+	jf, err := jailer.ReadFromFile(path)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
+		os.Exit(1)
+	}
 
-	// // Create config
-	// j := jailer.Jail{
-	// 	Name:      name,
-	// 	Hostname:  fmt.Sprintf("%s.jailer.com", name),
-	// 	IP:        ip,
-	// 	Path:      fmt.Sprintf("%s/%s", jailerPath, name),
-	// 	ExecStart: "/bin/sh /etc/rc",
-	// 	ExecStop:  "/bin/sh /etc/rc.shutdown",
-	// }
+	js, err := json.Marshal(jf)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
+		os.Exit(1)
+	}
 
-	// // Write to *.conf file
-	// err := jailer.WriteConfig(j)
-	// if err != nil {
-	// 	fmt.Fprintf(os.Stderr, "%v", err)
-	// 	os.Exit(ExitFailure)
-	// }
+	fmt.Println(string(js))
+
+	return nil
 }
 
 func init() {

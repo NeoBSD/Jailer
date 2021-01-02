@@ -29,7 +29,7 @@ func RunRunCommand(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	jailFile, err := jailer.NewFromFile(filepath.Join(dir, "testdata", "Jailerfile"))
+	jailFile, err := jailer.ReadFromFile(filepath.Join(dir, "testdata", "Jailerfile"))
 	if err != nil {
 		logrus.Fatal(err)
 	}
