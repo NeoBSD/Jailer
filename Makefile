@@ -13,11 +13,6 @@ BUILD_OS = ${shell uname}
 LINKER_FLAGS = -ldflags "-X main.commit=${HEAD} -X main.date=${BUILD_DATE} -X main.hostOS=${BUILD_OS}"
 UNAME := ${shell uname}
 
-# COMMANDS
-.PHONY: deps
-deps:
-	go get -u ./...
-
 ${BINARY_DIR}:
 	mkdir -p ${BINARY_DIR}
 
