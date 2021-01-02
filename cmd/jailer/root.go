@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -13,16 +14,26 @@ const (
 	tabWriterPadding = 3
 )
 
+// ErrSilent ...
+var ErrSilent = errors.New("ErrSilent")
+
 var cfgFile string
 
 var rootCmd = &cobra.Command{
-	Use:   "jailer",
-	Short: "jailer",
-	Long:  `jailer https://github.com/NeoBSD/jailer`,
-	Run:   nil,
+	Use:           "jailer",
+	Short:         "jailer",
+	Long:          `jailer https://github.com/NeoBSD/jailer`,
+	SilenceErrors: true,
+	SilenceUsage:  true,
 }
 
 func init() {
+	rootCmd.SetFlagErrorFunc(func(cmd *cobra.Command, err error) error {
+		cmd.Println(err)
+		cmd.Println(cmd.UsageString())
+		return ErrSilent
+	})
+
 	// Viper config
 	cobra.OnInitialize(initConfig)
 
