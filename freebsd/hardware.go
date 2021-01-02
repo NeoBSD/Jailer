@@ -17,7 +17,7 @@ func GetHardwareInfo() (Hardware, error) {
 	hardware := Hardware{}
 
 	// CPU model
-	out, err := GetPipeCommandOutput(
+	out, err := getPipeCommandOutput(
 		exec.Command("sysctl", "-a"),
 		exec.Command("grep", "hw.model:"),
 	)
@@ -29,7 +29,7 @@ func GetHardwareInfo() (Hardware, error) {
 	hardware.Model = out
 
 	// Num CPU
-	out, err = GetPipeCommandOutput(
+	out, err = getPipeCommandOutput(
 		exec.Command("sysctl", "-a"),
 		exec.Command("grep", "hw.ncpu:"),
 	)

@@ -24,7 +24,7 @@ func getCommandOutput(exe string, args ...string) (string, error) {
 	return strings.Trim(string(b), " \t\n\r"), nil
 }
 
-func GetPipeCommandOutput(c1, c2 *exec.Cmd) (string, error) {
+func getPipeCommandOutput(c1, c2 *exec.Cmd) (string, error) {
 	r, w := io.Pipe()
 	c1.Stdout = w
 

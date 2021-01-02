@@ -2,13 +2,11 @@ package freebsd
 
 // System details a FreeBSD version
 type System struct {
-	Hostname          string             `json:"hostname"`
-	Machine           string             `json:"machine"`
-	MachineArch       string             `json:"machine_arch"`
-	Hardware          Hardware           `json:"hardware"`
-	Version           Version            `json:"version"`
-	NetworkInterfaces []NetworkInterface `json:"network_interfaces"`
-	PFCTL             PFCTL              `json:"pfctl"`
+	Hostname    string   `json:"hostname"`
+	Machine     string   `json:"machine"`
+	MachineArch string   `json:"machine_arch"`
+	Hardware    Hardware `json:"hardware"`
+	Version     Version  `json:"version"`
 }
 
 // GetSystemInfo returns general system infos
