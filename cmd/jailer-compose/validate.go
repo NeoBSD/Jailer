@@ -29,7 +29,10 @@ func RunValidateCommand(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	fmt.Println("ok")
+	if viper.GetBool("verbose") {
+		fmt.Println("ok")
+	}
+
 	return nil
 }
 
