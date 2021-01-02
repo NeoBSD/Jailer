@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/NeoBSD/jailer"
+	"github.com/matryer/is"
 )
 
 // fileExists checks if a file exists and is not a directory before we
@@ -20,7 +21,7 @@ func fileExists(filename string) bool {
 }
 
 func TestDownloadFile(t *testing.T) {
-
+	is := is.New(t)
 	file, err := ioutil.TempFile(".", "test")
 	if err != nil {
 		log.Fatal(err)
@@ -30,13 +31,6 @@ func TestDownloadFile(t *testing.T) {
 	url := "https://raw.githubusercontent.com/NeoBSD/jailer/master/README.md"
 	filepath := file.Name()
 	err = jailer.DownloadFile(filepath, url)
-
-	if err != nil {
-		t.Error(err)
-	}
-
-	if !fileExists(filepath) {
-		t.Errorf("Expected file at: %s", filepath)
-	}
-
+	is.NoErr(err)
+	is.True(fileExists(filepath))
 }
