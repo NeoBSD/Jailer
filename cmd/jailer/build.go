@@ -1,9 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/NeoBSD/jailer"
 	"github.com/spf13/cobra"
@@ -26,13 +27,20 @@ func RunBuildCommand(cmd *cobra.Command, args []string) error {
 		os.Exit(1)
 	}
 
-	js, err := json.Marshal(jf)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%v\n", err)
-		os.Exit(1)
+	dir, _ := filepath.Split(path)
+	dir = strings.Trim(dir, "/")
+	jf.Image = dir
+	for _, instruction := range jf.Instructions {
+		instruction.Execute(jf)
 	}
 
-	fmt.Println(string(js))
+	// js, err := json.Marshal(jf)
+	// if err != nil {
+	// 	fmt.Fprintf(os.Stderr, "%v\n", err)
+	// 	os.Exit(1)
+	// }
+
+	// fmt.Println(string(js))
 
 	return nil
 }

@@ -15,6 +15,7 @@ type BaseImage struct {
 
 // Jailerfile ...
 type Jailerfile struct {
+	Image        string            `json:"image"`
 	Labels       map[string]string `json:"labels"`
 	BaseImage    BaseImage         `json:"base_image"`
 	Instructions []Instruction     `json:"instructions"`
@@ -30,7 +31,7 @@ func ReadFromFile(path string) (*Jailerfile, error) {
 	// Open file
 	file, err := os.Open(path)
 	if err != nil {
-		return &Jailerfile{}, err
+		return nil, err
 	}
 
 	defer file.Close()
@@ -80,12 +81,12 @@ func ReadFromFile(path string) (*Jailerfile, error) {
 	}
 
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "%v\n", err)
+		return nil, err
 	}
 
 	// Return empty & error if an error happend during scanning
 	if err := scanner.Err(); err != nil {
-		return &Jailerfile{}, err
+		return nil, err
 	}
 
 	return result, nil

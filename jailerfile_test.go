@@ -14,7 +14,7 @@ func TestReadFromFile(t *testing.T) {
 		expected    *jailer.Jailerfile
 		expectError bool
 	}{
-		{"testdata/jailer/noexist/Jailerfile", &jailer.Jailerfile{}, true},
+		{"testdata/jailer/noexist/Jailerfile", nil, true},
 		{"testdata/jailer/label/Jailerfile", &jailer.Jailerfile{BaseImage: jailer.BaseImage{Name: "freebsd", Version: "latest"}}, false},
 	}
 
@@ -22,7 +22,9 @@ func TestReadFromFile(t *testing.T) {
 		is := is.New(t)
 		actual, err := jailer.ReadFromFile(tt.input)
 		is.Equal(err != nil, tt.expectError)
-		is.Equal(actual.BaseImage, tt.expected.BaseImage)
+		if tt.expected != nil {
+			is.Equal(actual.BaseImage, tt.expected.BaseImage)
+		}
 	}
 }
 

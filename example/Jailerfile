@@ -2,14 +2,14 @@
 # FROM: Selects the base jail for this image build.
 FROM freebsd
 
-# LABEL: Adds metadata to an image. A LABEL is a key-value pair. 
+# LABEL: Adds metadata to an image. A LABEL is a key-value pair.
 LABEL maintainer="example@example.com"
 LABEL version="1.0"
 LABEL description="This text illustrates ..."
 
 # RUN: Executes a command inside the jail.
+RUN pkg -y install htop fish
 RUN echo "Hello Jailer!"
-RUN echo "Some other text."
 
 # WORKDIR: Sets the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD.
 WORKDIR /work
