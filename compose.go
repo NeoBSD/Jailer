@@ -61,7 +61,7 @@ func (compose *Compose) Validate() error {
 	for _, service := range compose.Services {
 		label := service.Label
 		if isInSlice(knownLabels, label) {
-			return fmt.Errorf("label used twice %s", label)
+			return fmt.Errorf("label used twice: '%s'", label)
 		}
 		knownLabels = append(knownLabels, label)
 	}

@@ -1,0 +1,18 @@
+---
+version: "0.1"
+services:
+  - label: test_label
+    image: "nginx"
+    cpu_percent: 50
+    cpu_threads: 100
+    command: "htop"
+  - label: test_label
+    image: "postgres"
+    cpu_percent: 25
+    cpu_threads: 50
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+    environment:
+      FLASK_ENV: development

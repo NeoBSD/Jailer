@@ -1,20 +1,32 @@
 package main
 
 import (
+	"errors"
 	"os"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
+// ErrSilent ...
+var ErrSilent = errors.New("ErrSilent")
+
 var rootCmd = &cobra.Command{
-	Use:   "jailer-compose",
-	Short: "jailer-compose",
-	Long:  `jailer-compose https://github.com/NeoBSD/jailer`,
-	Run:   nil,
+	Use:           "jailer-compose",
+	Short:         "jailer-compose",
+	Long:          `jailer-compose https://github.com/NeoBSD/jailer`,
+	Run:           nil,
+	SilenceErrors: true,
+	SilenceUsage:  true,
 }
 
 func init() {
+	rootCmd.SetFlagErrorFunc(func(cmd *cobra.Command, err error) error {
+		cmd.Println(err)
+		cmd.Println(cmd.UsageString())
+		return ErrSilent
+	})
+
 	rootCmd.SetIn(os.Stdin)
 	rootCmd.SetOut(os.Stdout)
 

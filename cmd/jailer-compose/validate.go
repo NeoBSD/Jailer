@@ -26,7 +26,7 @@ func RunValidateCommand(cmd *cobra.Command, args []string) error {
 
 	validationErrors := compose.Validate()
 	if validationErrors != nil {
-		return err
+		return validationErrors
 	}
 
 	if viper.GetBool("verbose") {
