@@ -3,7 +3,6 @@ package main
 import (
 	"os"
 
-	"github.com/sirupsen/logrus"
 	log "github.com/sirupsen/logrus"
 
 	"github.com/NeoBSD/jailer"
@@ -42,7 +41,7 @@ func init() {
 
 func main() {
 	if err := rootCmd.Execute(); err != nil {
-		logrus.Errorln(err)
+		log.Errorln(err)
 		os.Exit(1)
 	}
 }
